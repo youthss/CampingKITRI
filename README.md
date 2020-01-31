@@ -1,2 +1,2 @@
 # CampingKITRI
-KITRI di-con32th project final
+KITRI Di-Con 32th Final Project by Group No.3
