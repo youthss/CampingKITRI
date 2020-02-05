@@ -31,12 +31,9 @@ public class HomeController {
 
 		String formattedDate = dateFormat.format(date);
 
-		
-		model.addAttribute("serverTime", formattedDate );
-		System.out.println("��������222");
-		System.out.println("��������333");
-		
-		
+		model.addAttribute("serverTime", formattedDate);
+		System.out.println("UTF-8로 변경해요");
+
 		return "home";
 	}
 
