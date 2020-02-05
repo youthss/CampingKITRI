@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-부분 올리기 실험
+
 </body>
 </html>
