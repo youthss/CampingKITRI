@@ -34,6 +34,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate);
 		System.out.println("UTF-8로 변경해요");
 		System.out.println("WA!!!!!!!!!!!!!");
+		System.out.println("확인");
 
 		return "home";
 	}
