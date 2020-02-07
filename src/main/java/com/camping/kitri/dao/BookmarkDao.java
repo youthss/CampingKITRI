@@ -2,7 +2,7 @@ package com.camping.kitri.dao;
 
 import java.util.List;
 import java.util.Map;
-import main.java.com.heun.trip.domain.Bookmark;
+import com.camping.kitri.domain.Bookmark;
 
 public interface BookmarkDao {
   

@@ -2,7 +2,7 @@ package com.camping.kitri.dao;
 
 import java.util.List;
 import java.util.Map;
-import main.java.com.heun.trip.domain.Faq;
+import com.camping.kitri.domain.Faq;
 
 public interface FaqDao {
   int insert(Faq faq);
