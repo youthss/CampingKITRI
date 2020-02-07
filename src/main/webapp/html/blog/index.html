@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Heun Blog</title>
+ 
+  <link rel="shortcut icon" href="/heunheuntrip/img/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
+  <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../../lib/animate.css" rel="stylesheet">
+  <link href="../../lib/selectric/selectric.css" rel="stylesheet">
+  <link href="../../lib/aos/aos.css" rel="stylesheet">
+  <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
+  <link href="../../css/hover.css" rel="stylesheet" media="all">
+  <link href="../../css/colors/blue.css" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/heunheuntrip/html/header.css">
+
+  <script src="../../lib/jquery-3.2.1.min.js"></script>
+  <script src="../../lib/popper.min.js"></script>
+  <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../../lib/selectric/jquery.selectric.js"></script>
+  <script src="../../lib/aos/aos.js"></script>
+  <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+  <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="../../lib/lib.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>  
+  <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
+  <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services"></script>
+    
+  <style>
+  @import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+  @import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css); .jejumyeongjo * { font-family: 'Jeju Myeongjo', serif; }
+  
+ .mb50 {
+    margin-bottom: 10px !important;
+  }
+  
+  .text-success {
+      color: #d3d3d3 !important;
+  }
+  
+  .main-title {
+    margin-bottom: 15px;
+    line-height: 34px;
+    color: #777777;
+}
+  
+    </style>    
+    
+</head>
+
+<body>
+    <div id='heun-header'></div>
+  <div id="main">
+
+
+    <div id="content-blog">
+      <div class="container">
+        <div class="heun-btitle">
+        <h1 style="font-family: 'Pacifico', cursive;">Heun's Trip Blog</h1>
+        <span>흔하지만 흔하지않은 여행 블로그</span>
+        </div>
+        <div class='row main-btn justify-content-between'>
+
+          <div class="btn-group search-choose">
+                  <button type="button" class="btn btn-secondary dropdown-toggle searchselect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    리스트
+                  </button>
+                  <div class="dropdown-menu heun-search">
+                  <a class="dropdown-item new" data-no="createdDate" name ="order">최신순</a>
+                    <a class="dropdown-item old" name="deorder">오래된순</a>
+                    <a class="dropdown-item like" name="blike" >인기순</a>
+                  </div>
+         </div>
+
+          <div class="col-auto">
+            <a href='view.html' class="btn btn-new btn check-btn hvr-fade">새 포스트</a>
+          </div>
+
+        </div>
+
+
+        <div class="page-header v2 bordered mb0"></div>
+        <div class="clearfix"></div>
+
+        <!-- 핸들바스 적용 지점 -->
+        <div class="item-listing blog-form-list row"></div>
+
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
+    <div id="heun-footer"></div>
+  </div>
+
+  <!-- 핸들바스 -->
+  <script id="tr-template" type="text/x-handlebars-template">
+    {{#each list}}
+    <div class='item item-lg col-lg-3 col-md-4 col-sm-6 col-xs-12 one-form'>
+        <div class='item-image'>
+          <a class='bit-view-link' href='#' data-no={{no}}>
+           <img src='/heunheuntrip/app/json/images/down/{{mainPhoto}}' class='img-fluid' alt=''>
+          </a>
+        </div>
+        <div class='blog-list-info'>
+          <h3 class='item-title' style="font-family: 'Jeju Myeongjo', serif; color: #545454">{{title}}</h3>
+
+          <div class='item-meta-info'>
+          <span class='date'>{{createdDate}}</span><br>
+          <span class='author'>글쓴이 : {{name}}</span>
+          </div>
+        </div>
+    </div>
+   {{/each}}
+
+  </script>
+
+  <script src="index.js"></script>
+</body>
+
+</html>

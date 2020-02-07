@@ -1,0 +1,30 @@
+  .a {
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+  }
+  .em {
+  padding-left: 12px;
+  }
+  .pw {
+  padding-left: 31px;
+  }
+  .text-lg a{
+  font-weight: bold;
+  }
+  div label{
+  font-weight: bold;
+  }
+  #kakao-login-btn{
+    height: 40px;
+    width: 185px;
+  }
+  #naverIdLogin{
+    padding-top: 10px;
+  }
+  #asd{
+   width: 100px;
+   padding-top: 10px;
+  }
+

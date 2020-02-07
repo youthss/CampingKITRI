@@ -1,0 +1,50 @@
+h1 {
+    text-align: center;
+    margin: 30px;
+}
+ 
+.item-meta-info {
+	 float:right;
+}
+
+.item-meta-info2{ 
+    float: left;
+}
+
+.heun-contents {
+    padding: 10px;
+    font-size: 1.1em;
+    height: auto;
+}
+
+.likecount {
+  color: #6275a6;
+  background: #ffffff;
+  border: solid #869eba 3px;
+  float: left;
+  width: 95px;
+}
+
+.heart-btn {
+	color : #c0c0c0;
+}
+
+.buttons {
+  float: right;
+}
+
+.fa-heart {
+	margin-left: 15px;
+}
+
+
+#update-title{
+  height: 40px;
+  width: 900px;
+  margin-top: 50px;
+  margin-left: 20px; 
+}
+
+#cont{
+    min-height: 330px;
+}

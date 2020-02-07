@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.heun.trip.dao.QnaDao">
+  
+  <resultMap type="qna" id="qnaMap">
+    <id column="qna_id" property="qnaNo"/>
+    <result column="name" property="name"/>
+    <result column="usr_id" property="userNo"/>
+    <result column="auth" property="auth"/>
+    <result column="qna_cate_id" property="categoryNo"/>
+    <result column="cate" property="category"/>
+    <result column="parent" property="parent"/>
+    <result column="ordr" property="order"/>
+    <result column="step" property="step"/>
+    <result column="content" property="content"/>
+    <result column="title" property="title"/>
+    <result column="qna_pwd" property="password"/>
+    <result column="cdt" property="createdDate"/>
+    <result column="vw_cnt" property="viewCount"/>
+  </resultMap>
+  
+  <resultMap type="category" id="cateMap">
+    <id column="qna_cate_id" property="no"/>
+    <result column="cate" property="category"/>
+  </resultMap>
+   
+  
+  
+   <select id="findbyname" resultMap="qnaMap" parameterType="map">
+    
+    select
+      q.qna_id,
+      u.name,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u on q.usr_id=u.usr_id
+    left outer join
+      qna_cate c on q.qna_cate_id=c.qna_cate_id
+    where
+       u.name like CONCAT('%', #{val}, '%')
+  
+    order by 
+      qna_id desc
+      <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+     <select id="findbytitle" resultMap="qnaMap" parameterType="map">
+    
+    select
+      q.qna_id,
+      u.name,
+      q.parent, 
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u on q.usr_id=u.usr_id
+    left outer join
+      qna_cate c on q.qna_cate_id=c.qna_cate_id
+    where
+       q.title like CONCAT('%', #{val}, '%')
+  
+    order by 
+      qna_id desc
+      <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <select id="findbytitlename" resultMap="qnaMap" parameterType="map">
+    select
+      q.qna_id,
+      u.name,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u on q.usr_id=u.usr_id
+    left outer join
+      qna_cate c on q.qna_cate_id=c.qna_cate_id
+    where
+       u.name like CONCAT('%', #{val}, '%') or q.title like CONCAT('%', #{val}, '%')
+  
+    order by 
+      qna_id desc
+      <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <select id="deleteList" resultMap="qnaMap" parameterType="map">
+   <![CDATA[
+   select
+     q.qna_id,
+     parent,
+     ordr, 
+     step
+   from 
+     qna q
+   where 
+     parent=#{parent} and ordr>#{order} 
+   order by 
+     ordr asc
+   ]]>
+  </select>
+  
+  <insert id="insert" parameterType="qna">
+    insert into qna(
+      usr_id,
+      qna_cate_id,
+      parent,
+      ordr,
+      step,
+      title,
+      content,
+      qna_pwd)
+    values(
+      #{userNo},
+      #{categoryNo},
+      #{parent},
+      #{order},
+      #{step},
+      #{title},
+      #{content},
+      password(#{password}))
+  </insert>
+  
+  <select id="findAll" resultMap="qnaMap" parameterType="map">
+    select
+      q.qna_id,
+      u.name,
+      u.usr_id,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u on q.usr_id=u.usr_id
+    left outer join
+      qna_cate c on q.qna_cate_id=c.qna_cate_id
+    order by 
+      parent desc, ordr asc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <select id="findByNo" resultMap="qnaMap" parameterType="int">
+    select
+      q.qna_id,
+      q.usr_id,
+      u.name,
+      a.auth,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      c.qna_cate_id,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u
+    on
+      q.usr_id=u.usr_id
+    left outer join
+      auth a
+    on
+      u.auth_id=a.auth_id
+    left outer join
+      qna_cate c
+    on
+      q.qna_cate_id=c.qna_cate_id
+    where
+      q.qna_id=#{value}
+  </select>
+  
+  <select id="findByReList" resultMap="qnaMap" parameterType="map">
+    select
+      q.qna_id,
+      u.name,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u on q.usr_id=u.usr_id
+    left outer join
+      qna_cate c on q.qna_cate_id=c.qna_cate_id
+    where
+      q.parent=#{parent} and q.step<![CDATA[<]]>#{step}
+    order by 
+      parent asc
+  </select>
+  
+  <select id="getCategory" resultMap="cateMap">
+    select
+      qna_cate_id,
+      cate
+    from
+      qna_cate
+  </select>
+  
+  <select id="maxParent" resultType="int">
+    select
+      max(parent)
+    from
+      qna
+  </select>
+  
+  <select id="maxOrder" resultType="int" parameterType="int">
+    select
+      max(ordr)
+    from
+      qna
+    where
+      parent = #{value}
+  </select>
+  
+  <update id="sorting" parameterType="map">
+    update
+      qna
+    set
+      ordr = ordr + 1
+    where 
+      parent = #{parent}
+    and
+      ordr <![CDATA[>]]> #{order}
+  </update>
+  
+ 
+  
+   <update id="update" parameterType="qna">
+    update
+      qna
+    set
+      title = #{title},
+      content = #{content},
+      qna_cate_id = #{categoryNo},
+      qna_pwd = password(#{password}) 
+    where 
+      qna_id = #{qnaNo}
+  </update>
+  
+    <delete id="delete" parameterType="int">
+
+    delete 
+      from qna 
+    where 
+      qna_id = #{qnaNo} 
+  </delete>
+ 
+  <update id="increaseCount" parameterType="int">
+    update qna 
+    set 
+      vw_cnt = vw_cnt + 1 
+    where qna_id = #{value}
+  </update>
+ 
+  <select id="countAll" resultType="int" >
+      select count(*) from qna;
+  </select>
+   
+   <select id="namecountAll" resultType="int" parameterType="map">
+      select count(*) 
+      from qna q
+        left outer join
+      usr u on q.usr_id=u.usr_id 
+        where u.name like CONCAT('%', #{val}, '%')  
+  </select>
+  
+  <select id="titlecountAll" resultType="int" parameterType="map">
+      select count(*) from qna where title like CONCAT('%', #{val}, '%');
+  </select>
+  
+  <select id="titlenamecountAll" resultType="int" parameterType="map">
+       select count(*) 
+      from qna q
+        left outer join
+      usr u on q.usr_id=u.usr_id 
+        where u.name like CONCAT('%', #{val}, '%') or q.title like CONCAT('%', #{val}, '%')
+  </select>
+   
+   
+  <select id="password" parameterType="map" resultType="int">
+   select 
+     count(*) 
+   from qna 
+   where 
+   qna_pwd=password(#{pwd}) and qna_id=#{qnaNo}
+  </select>
+  
+  <select id="passwordCheck" parameterType="int" resultType="int">
+   select 
+    count(*) 
+   from qna 
+   where 
+    qna_id = #{qnaNo} and qna_pwd = ''
+  </select>
+  
+</mapper>     

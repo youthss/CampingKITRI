@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>숙소 리스트</title>
+
+  <link rel="shortcut icon" href="/heunheuntrip/img/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
+  <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../../lib/animate.css" rel="stylesheet">
+  <link href="../../lib/selectric/selectric.css" rel="stylesheet">
+  <link href="../../lib/aos/aos.css" rel="stylesheet">
+  <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
+  <link href="../../css/colors/blue.css" rel="stylesheet">
+  <link href="./css/index.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/heunheuntrip/html/header.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+  <script src="../../lib/jquery-3.2.1.min.js"></script>
+  <script src="../../lib/popper.min.js"></script>
+  <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../../lib/selectric/jquery.selectric.js"></script>
+  <script src="../../lib/aos/aos.js"></script>
+  <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+  <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="../../lib/sidr/jquery.sidr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="../../lib/lib.js"></script>
+  <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
+
+  <style>
+    .modal-full {
+      min-width: 100%;
+      margin: 0;
+    }
+    .modal-full .modal-content {
+        min-height: 100vh;
+    }
+    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .close:hover {cursor: pointer;}
+    .info .body {position: relative;overflow: hidden;}
+    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .info .link {color: #5085BB;}
+  </style>
+</head>
+
+<body>
+  <div id="main">
+
+    <div id="heun-header"></div>
+
+    <div id="content">
+      <div class="container-fluid">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-12 col-xl-10">
+            <div class="row has-sidebar">
+              <div class="col-md-4 col-lg-3">
+                <button id="toggle-filters" class="btn btn-primary btn-circle mobile-filter"><i
+                    class="fa fa-filter"></i></button>
+                <div id="sidebar" class="sidebar-left">
+                  <button class="close-panel btn btn-white"><i class="fa fa-long-arrow-left"></i></button>
+                  <div class="sidebar_inner">
+                    <div id="filters">
+                      <div class="card mb-4">
+                        <div id="map" class="container-fluid border border-primary" style="width:100%;height:300px;"></div>
+                      </div>
+                      <div class="card bookmark-card">
+                        <div class="card-header">
+                          <h4 class="panel-title"> <a role="button" data-toggle="collapse" data-parent="#accordion"
+                              href="#b_type" aria-expanded="true" aria-controls="p_type"> 찜 <small>BOOKMAKR</small> <i
+                              class="fa fa-caret-down float-right"></i> </a> </h4>
+                        </div>
+                        <div class='bookmark-list panel-collapse collapse show' id='b_type' role="tabpanel"></div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8 col-lg-9">
+                <div class="sorting">
+                  <div class="row justify-content-between">
+                    <div class="col-sm-5 col-md-5 col-lg-4 col-xl-3">
+                      <div class="form-group float-left w-100">
+                        <select class="form-control ui-select">
+                          <option selected="selected">최신순</option>
+                          <option>높은 가격순</option>
+                          <option>낮은 가격순</option>
+                          <option>인기순</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                      <div class="btn-group float-right" role="group">
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">지도크게보기</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="item-listing grid">
+
+                  <div id="room-list" class="row">
+                  </div>
+
+                </div>
+
+                <div class="pagination-menu"></div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
+
+    <div id="heun-footer"></div>
+
+  </div>
+
+  <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+  <script src="../js/handlebars-paginate.js"></script>
+
+  <script id="list-template" type="text/x-handlebars-template">
+    {{#each list}}
+      
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="item">
+        <div class="item-image">
+          <a class="heun-room" href="#" data-no="{{no}}" data-latitude="{{latitude}}" data-longitude="{{longitude}}">
+            <img src="/heunheuntrip/app/json/images/down/{{thumbnail}}" class="img-fluid" alt="">
+          </a>
+          {{#if bookmarkC}}
+          <a href="#" class="save-item bM-full"><i class="fa fa-star" style="color:#ffe449"></i></a>
+          <a href="#" class="save-item bM-empty" style="display: none"><i class="fa fa-star"></i></a> 
+          {{else}}
+          <a href="#" class="save-item bM-empty"><i class="fa fa-star"></i></a> 
+          <a href="#" class="save-item bM-full" style="display: none"><i class="fa fa-star" style="color:#ffe449"></i></a>
+          {{/if}}
+        </div>
+        <div class="item-info">
+          <h3 class="item-title">{{name}}</h3>
+          <div class="item-location">
+            <i class="fas fa-map-marker-alt"></i>
+                  {{area}}
+          </div>
+          <div class="item-details-i"> 
+            <span class="bedrooms" data-toggle="tooltip" title="3 Bedrooms">{{bed}}<i class="fa fa-bed"></i></span>
+            <span class="bathrooms" data-toggle="tooltip" title="2 Bathrooms">{{bath}}<i class="fa fa-bath"></i></span> 
+            <span class="float-right">₩ {{price}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{/each}}
+  </script>
+  
+  <script id="bookmark-template" type="text/x-handlebars-template">
+    {{#each list}}
+      <div class="card-body heun-bmbody" style="border-bottom: 0.2px solid #e1e1e1; padding: 5px;">
+        <div>
+         <a href="#"><h7 class="heun-BMname" data-no={{roomNo}} style="font-weight: bold; color: #3b8ced;"> <i class="fas fa-check" style="color: #3b8ced;"></i>   {{roomName}} </h7></a>
+         <p class="heun-BMprice" style="font-size: 10px"> {{roomPrice}}won </p>
+         <div class="heun-memo"><i class="fas fa-angle-double-right"></i>   {{memo}}</div>
+        </div>
+      </div>
+    {{/each}}
+  </script>
+
+  <script id="page-template" type="text/x-handlebars-template">
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      {{#paginate pagination type="first"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;&laquo;</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="previous"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="middle" limit="5"}}
+        <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="loadList({{n}})">{{n}}</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="next"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&raquo;</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="next"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&raquo;&raquo;</a></li>
+      {{/paginate}}
+    </ul>
+  </nav>
+  </script>
+
+  <script src="./js/index.js"></script>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-full">
+      <div id="modal-map" class="modal-content border border-primary" style="width:100%;height:100%;position:relative;overflow:hidden;">
+          <button type="button" class="close position-absolute fixed-top" data-dismiss="modal" aria-hidden="true" style="bottom: auto; left: 98.4%;" >&times;</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

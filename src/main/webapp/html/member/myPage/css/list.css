@@ -1,0 +1,54 @@
+
+.riw-modal {
+	text-align: center;  
+}
+
+.dropdown-menu > button {
+	width: 446px;
+	text-align: center; 
+}
+ 
+h4 {
+	color: #696969;
+}
+ 
+.rev-state {
+	margin: 10px 0px 0px 0px;
+	font-weight: 700;
+}
+
+.update-check {
+  float: right;
+  margin-top: 10px;
+  line-height: 1.2;
+}
+
+.delete-check {
+  float: right;
+  margin-top: 10px;
+  line-height: 1.2;
+}
+
+.riw-write{
+	float: right;
+	margin-top: 10px;
+	line-height: 1.2;
+}
+
+.riw-check {
+  float: right;
+  margin-top: 10px;
+  line-height: 1.2;
+}
+
+.riw-complete{
+  float: right;
+  margin-top: 10px;
+  line-height: 1.2;
+}
+
+#message-text {
+	margin-top: 20px;
+}
+
+
