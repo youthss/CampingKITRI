@@ -1,4 +1,4 @@
-package com.camping.app.namhyeon.auth;
+package com.camping.app.auth;
 
 public class RegisterVO {
 

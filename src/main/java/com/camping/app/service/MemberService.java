@@ -2,8 +2,11 @@ package com.camping.app.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.camping.app.domain.Member;
 
+@Service
 public interface MemberService {
 	int add(Member member);
 

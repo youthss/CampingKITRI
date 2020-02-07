@@ -4,6 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   <configuration>
   	<typeAliases>
-  		<typeAlias type="com.camping.app.namhyeon.auth.RegisterVO" alias="register"/>
+  		<typeAlias type="com.camping.app.auth.RegisterVO" alias="register"/>
   	</typeAliases>
   </configuration>

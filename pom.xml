@@ -4,9 +4,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>kitri.edu</groupId>
-	<artifactId>mvc</artifactId>
-	<name>spring1</name>
+	<groupId>com.camping</groupId>
+	<artifactId>app</artifactId>
+	<name>CampingKITRI</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>

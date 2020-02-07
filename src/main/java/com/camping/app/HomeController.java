@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,7 +36,22 @@ public class HomeController {
 		System.out.println("UTF-8로 변경해요");
 		System.out.println("WA!!!!!!!!!!!!!");
 
-		return "home";
+		return "index";
+	}
+
+	@GetMapping(value = "header")
+	public String header() {
+		return "header";
+	}
+
+	@GetMapping(value = "auth/signin")
+	public String sign() {
+		return "/auth/signin";
+	}
+
+	@GetMapping(value = "auth/register")
+	public String register() {
+		return "/auth/register";
 	}
 
 }
