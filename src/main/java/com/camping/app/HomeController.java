@@ -36,6 +36,7 @@ public class HomeController {
 		System.out.println("UTF-8로 변경해요");
 		System.out.println("WA!!!!!!!!!!!!!");
 		System.out.println("확인");
+		System.out.println("영민");
 
 		return "index";
 	}

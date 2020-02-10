@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.heun.trip.dao.RevDao">
+  
+  <resultMap type="rev" id="revMap">
+    <id column="rev_id" property="no"/>
+    <result column="usr_id" property="userNo"/>
+    <result column="stus_id" property="stusNo"/>
+    <result column="rms_id" property="rmsNo"/>
+    <result column="cck_in" property="checkIn"/>
+    <result column="cck_out" property="checkOut"/>
+    <result column="rev_stus" property="revStus"/>
+    <result column="rev_persn" property="revPerson"/>
+    <result column="rev_cdt" property="createdDate"/>
+    <result column="rev_char" property="revCharge"/>
+    <result column="rev_updt" property="revUpdate"/>
+    <result column="rev_reas" property="revReason"/>
+    <result column="rev_delet" property="revDelete"/>
+    
+    <result column="rm_name" property="rmsName"/>
+    <result column="addr" property="address"/>
+    <result column="thum" property="thumbnail"/>
+    <result column="stus" property="status"/>
+    
+    <result column="name" property="guestName"/>
+    <result column="merchant_uid" property="merchantUid"/>
+    <result column="imp_uid" property="impUid"/>
+  </resultMap>
+  
+  <resultMap type="riw" id="riwMap">
+    <id column="riw_id" property="no"/>
+    <result column="usr_id" property="userNo"/>
+    <result column="rms_id" property="roomNo"/> 
+  </resultMap>
+  
+  
+  
+  <insert id="inupdate" parameterType="Rev">
+    insert into rev(
+      usr_id,
+      stus_id,
+      rms_id,
+      cck_in,
+      cck_out,
+      rev_persn,
+      rev_char,
+      rev_updt,
+      rev_reas)
+      
+    values (
+      #{userNo},
+      #{stusNo},
+      #{rmsNo},
+      #{checkIn},
+      #{checkOut},
+      #{revPerson},
+      #{revCharge},
+      #{revUpdate},
+      #{revReason}
+    )
+  
+  </insert>
+  
+  <select id="findAll" resultMap="revMap" parameterType="map">
+    select
+     r.rm_name,
+     r.addr,
+     r.thum,
+     e.rev_id,
+     e.usr_id,
+     e.rms_id,
+     e.cck_in,
+     e.cck_out,
+     e.stby_stus,
+     e.rev_persn,
+     e.rev_char,
+     e.rev_delet,
+     s.stus
+    from rev e
+     left outer join rms r on e.rms_id = r.rms_id
+     left outer join stus s on e.stus_id = s.stus_id
+    where
+      e.usr_id = #{userNo}
+    order by 
+      e.rev_id desc 
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <select id="findByNo" resultMap="revMap" parameterType="int">
+    select
+     r.rm_name,
+     r.addr,
+     r.thum,
+     e.rev_id,
+     e.usr_id,
+     e.rms_id,
+     e.stus_id,
+     e.cck_in,
+     e.cck_out,
+     e.rev_persn,
+     e.rev_char,
+     e.rev_updt,
+     e.rev_delet,
+     s.stus,
+     u.name,
+     e.imp_uid
+    from rev e
+     left outer join rms r on e.rms_id = r.rms_id
+     left outer join usr u on e.usr_id = u.usr_id 
+     left outer join stus s on e.stus_id = s.stus_id
+    where e.rev_id=#{no}
+  </select>
+  
+  <select id="count" parameterType="map" resultType="int">
+    select 
+     count(*) 
+    from 
+     riw 
+    where 
+     usr_id=#{userNo} and rms_id=#{roomNo}
+  </select>
+  
+  <select id="countAll" resultType="int" parameterType="int">
+    select 
+      count(*) 
+    from 
+      rev
+    where
+      rev_id NOT IN(
+        select 
+          rev_updt 
+        from 
+          rev 
+        where 
+          rev_updt is not null) and usr_id = #{no}
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from rev 
+    where rms_id = #{value}
+  </delete>
+  
+  <select id="getupdtData" resultMap="revMap">
+    select
+     r.rm_name,
+     r.addr,
+     r.thum,
+     e.rev_id,
+     e.usr_id,
+     e.rms_id,
+     e.stus_id,
+     e.cck_in,
+     e.cck_out,
+     e.rev_persn,
+     e.rev_char,
+     e.rev_updt,
+     e.rev_delet,
+     s.stus 
+    from rev e
+     left outer join rms r on e.rms_id = r.rms_id
+     left outer join stus s on e.stus_id = s.stus_id
+    where 
+      e.rev_id NOT IN(
+        select 
+          rev_updt 
+        from 
+          rev 
+        where 
+          rev_updt is not null) and e.usr_id = #{userNo}
+    order by 
+      e.rev_id desc 
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <update id="requestDelete" parameterType="int">
+    update
+      rev
+    set
+      rev_delet = rev_delet + 1
+    where 
+      rev_id = #{no}
+  </update>
+  
+  <select id="listInHostPage" parameterType="map" resultMap="revMap">
+    select
+    e.rev_id, 
+    e.cck_in, 
+    e.cck_out, 
+    e.usr_id, 
+    e.rev_persn,
+    e.rev_delet,
+    e.rev_updt,
+    e.rev_reas,
+    r.rm_name, 
+    u.name
+  from 
+    rev e 
+  left outer join 
+    usr u on e.usr_id = u.usr_id 
+  left outer join 
+    rms r on e.rms_id = r.rms_id 
+    where 
+      e.rev_id NOT IN(
+        select 
+          rev_updt 
+        from 
+          rev 
+        where 
+          rev_updt is not null) and r.usr_id = #{userNo}
+  <if test="size != null and rowNo != null">
+    limit #{rowNo}, #{size}
+  </if>
+  </select>
+  
+  <delete id="deleteInHostpage" parameterType="int">
+    delete from rev
+    where rev_id = #{no}
+  </delete>
+  
+  <select id="countInHostPage" parameterType="int" resultType="int">
+   select 
+      count(rev_id)
+    from 
+      rev
+    where
+      rms_id IN (select rms_id from rms where usr_id= #{no}) and rev_updt is null
+  </select>
+  
+  <update id="changeRev" parameterType="int">
+    update
+      rev
+    set
+      rev_updt = NULL, rev_reas = NULL
+    where
+      rev_id = #{no}
+  </update>
+  
+  <select id="findByRoomReservationHistory" parameterType="int" resultMap="revMap">
+    select
+      rev_id,
+      rms_id,
+      cck_in, 
+      cck_out,
+      rev_cdt,
+      merchant_uid,
+      imp_uid
+    from 
+      rev e 
+    where 
+      rev_id NOT IN(
+          select 
+            rev_updt 
+          from 
+            rev 
+          where 
+            rev_updt is not null) and rms_id = #{no}
+  </select>
+  
+  <insert id="add" parameterType="Rev">
+    insert into rev(
+      usr_id,
+      stus_id,
+      rms_id,
+      cck_in,
+      cck_out,
+      rev_persn,
+      rev_char,
+      merchant_uid,
+      imp_uid)
+    values (
+      #{userNo},
+      #{stusNo},
+      #{rmsNo},
+      #{checkIn},
+      #{checkOut},
+      #{revPerson},
+      #{revCharge},
+      #{merchantUid},
+      #{impUid})
+  </insert>
+  
+  <update id="checkin" parameterType="string">
+    update
+      rev
+    set
+      stus_id = 2
+    where
+      cck_in = #{value}
+  </update>
+  
+  <update id="checkout" parameterType="string">
+    update
+      rev
+    set
+      stus_id = 3
+    where
+      cck_out = #{value}
+  </update>
+  
+</mapper>
+
+
+ 
+
+
+
+
+
+
+

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.heun.trip.dao.RoomFileDao">
+  
+  <resultMap type="room" id="roomMap">
+    <id column="r_photo_id" property="no"/>
+    <result column="rms_id" property="roomNo"/>
+    <result column="rm_photo" property="name"/>
+  </resultMap>
+  
+  <insert id="insert" parameterType="list">
+    INSERT INTO rm_photo(
+      rms_id, 
+      rm_photo)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      ("${item.roomNo}", "${item.name}")
+    </foreach>
+  </insert>
+  
+  
+  
+  <delete id='delete' parameterType="int">
+  delete from rm_photo
+  where rms_id =#{value}
+  </delete>
+  <!-- <select id="findAll" resultMap="roomMap" parameterType="map">
+    select
+      r.rms_id,
+      r.rm_name,
+      r.rm_chge,
+      r.grd,
+      p.rm_photo as thumbnail
+    from
+      rms r
+    left outer join rm_photo p on r.rms_id=p.rms_id
+    where
+      p.rm_photo like '%thumbnail%'
+    order by
+      r.rms_id desc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+ 
+  <select id="countAll" resultType="int">
+    select count(*) from rms
+  </select>
+  
+  <select id="findByNo" resultMap="roomPhotoMap" parameterType="int">
+    select
+        r.rms_id,
+        r.rm_name,
+        r.rm_chge,
+        r.max_ple,
+        r.post_code,
+        r.addr,
+        r.dtil_addr,
+        r.lati,
+        r.longi,
+        r.rule,
+        r.map,
+        r.cacl_gde,
+        r.cdt,
+        r.plty_gde,
+        r.grd,
+        u.usr_id,
+        u.tel,
+        u.name,
+        u.usr_photo,
+        p.r_photo_id,
+        p.rms_id,
+        p.rm_photo,
+        a.amn_id,
+        a.amn
+    from rms r
+        left outer join usr u on r.usr_id=u.usr_id
+        left outer join rm_photo p on r.rms_id=p.rms_id
+        left outer join rms_amn ra on r.rms_id=ra.rms_id
+        left outer join amn a on ra.amn_id=a.amn_id
+    where
+        r.rms_id=#{value}
+  </select> -->
+  
+  
+  
+  
+</mapper>     
+
+
+ 
+
+
+
+
+
+
+

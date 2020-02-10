@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.heun.trip.dao.BookmarkDao">
+  
+  <resultMap type="bookmark" id="bookmarkMap">
+    <id column="usr_id" property="userNo"/>
+    <result column="rms_id" property="roomNo"/>
+    <result column="memo" property="memo"/>
+    <result column="thum" property="roomPhoto"/>
+    <result column="rm_name" property="roomName"/>
+    <result column="addr" property="roomAddr"/>
+    <result column="rm_chge" property="roomPrice"/>
+    <result column="cdt" property="createdDate"/>
+  </resultMap>
+  
+  <select id="findAll" resultMap="bookmarkMap" parameterType="map">
+    select
+      b.usr_id,
+      b.rms_id,
+      b.memo,
+      r.thum,
+      r.rm_name,
+      r.addr,
+      r.rm_chge
+    from
+      bookmark b
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    where
+      b.usr_id = #{userNo}
+    order by
+      b.cdt desc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <insert id="insert" parameterType="bookmark">
+    insert into bookmark(
+      usr_id,
+      rms_id,
+      memo)
+    values(
+      #{userNo},
+      #{roomNo},
+      #{memo})
+  </insert>
+  
+  <update id="update" parameterType="map">
+    update
+      bookmark
+    set
+      memo = #{memo} 
+    where 
+      usr_id = #{userNo} and rms_id= #{roomNo}
+  </update>
+  
+  <delete id="delete" parameterType="map">
+    delete from 
+      bookmark 
+    where 
+      usr_id = #{userNo} and rms_id= #{roomNo};
+  </delete>
+  
+    <delete id="roomdelete" parameterType="int">
+    delete from 
+      bookmark 
+    where 
+     rms_id= #{value};
+  </delete>
+
+  <select id="countAll" resultType="int" parameterType="int">
+    select count(*) from bookmark where usr_id=#{no}
+  </select>
+  
+  <select id="countBookmark" resultType="int" parameterType="map">
+   select count(memo) from bookmark where usr_id = #{userNo} and rms_id = #{roomNo};
+  </select>
+   
+</mapper>
+
+
+
+
+ 
+
+
+
+
+

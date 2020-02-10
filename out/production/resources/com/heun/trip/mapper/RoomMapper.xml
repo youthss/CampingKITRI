@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.heun.trip.dao.RoomDao">
+  
+  <resultMap type="room" id="roomMap">
+    <id column="rms_id" property="no"/>
+    <result column="rm_name" property="name"/>
+    <result column="rm_chge" property="price"/>
+    <result column="bed" property="bed"/>
+    <result column="bath" property="bath"/>
+    <result column="max_ple" property="maxPerson"/>
+    <result column="post_code" property="postcode"/>
+    <result column="area" property="area"/>
+    <result column="addr" property="address"/>
+    <result column="dtil_addr" property="detailAddress"/>
+    <result column="lati" property="latitude"/>
+    <result column="longi" property="longitude"/>
+    <result column="cont" property="content"/>
+    <result column="type" property="type"/>
+    <result column="dets" property="details"/>
+    <result column="reva" property="reservation"/>
+    <result column="come" property="welcome"/>
+    <result column="traf" property="traffic"/>
+    <result column="thum" property="thumbnail"/>
+    <result column="cdt" property="createdDate"/>
+    <result column="usr_id" property="hostNo"/>
+    <result column="grd" property="grade"/>
+     <result column="activation" property="state"/>
+     <result column="reject_memo" property="rjmo"/>
+  </resultMap>
+ 
+  <resultMap type="room" id="roomPhotoMap">
+    <id column="rms_id" property="no"/>
+    <result column="rm_name" property="name"/>
+    <result column="rm_chge" property="price"/>
+    <result column="bed" property="bed"/>
+    <result column="bath" property="bath"/>
+    <result column="max_ple" property="maxPerson"/>
+    <result column="post_code" property="postcode"/>
+    <result column="area" property="area"/>
+    <result column="addr" property="address"/>
+    <result column="dtil_addr" property="detailAddress"/>
+    <result column="lati" property="latitude"/>
+    <result column="longi" property="longitude"/>
+    <result column="cont" property="content"/>
+    <result column="type" property="type"/>
+    <result column="dets" property="details"/>
+    <result column="reva" property="reservation"/>
+    <result column="come" property="welcome"/>
+    <result column="traf" property="traffic"/>
+    <result column="thum" property="thumbnail"/>
+    <result column="cdt" property="createdDate"/>
+    <result column="usr_id" property="hostNo"/>
+    <result column="grd" property="grade"/>
+    
+    <collection property="photos" ofType="roomFile"> 
+      <id column="r_photo_id" property="no"/>
+      <result column="rms_id"  property="RoomNo"/>
+      <result column="rm_photo" property="name"/>
+    </collection>
+    
+    <collection property="conveniences" ofType="convenience"> 
+      <id column="amn_id" property="no"/>
+      <result column="amn"  property="name"/>
+    </collection>
+    
+    <collection property="safeties" ofType="safety"> 
+      <id column="safety_id" property="no"/>
+      <result column="safety"  property="safety"/>
+    </collection>
+  
+  </resultMap>
+  
+  
+  <insert id="insert" parameterType="room" useGeneratedKeys="true" keyColumn="rms_id" keyProperty="no">
+    INSERT INTO rms(
+      usr_id, area, type, bed, bath, cont, dets, reva, come, 
+      traf, rm_name, rm_chge, max_ple, post_code, addr, dtil_addr, lati, longi, grd, thum)
+    VALUES(
+      #{hostNo}, #{area}, #{type}, #{bed}, #{bath}, #{content}, #{details}, #{reservation}, 
+      #{welcome}, #{traffic}, #{name}, #{price}, #{maxPerson}, #{postcode}, #{address}, #{detailAddress}, #{latitude}, 
+      #{longitude}, #{grade}, #{thumbnail})
+  </insert>
+  
+  
+    <update id="grdinsert" parameterType="map">
+    update rms
+    <set>
+ 
+    <if test="grade != ''">grd =  #{grade},</if>
+  
+      </set>
+      where
+      rms_id=#{roomNo}
+  </update>
+  
+   <update id="update" parameterType="room" useGeneratedKeys="true" keyColumn="rms_id" keyProperty="no">
+    update rms
+    <set>
+    <if test="hostNo != ''">usr_id =  #{hostNo},</if>
+    <if test="area != ''">area =  #{area},</if>
+    <if test="type != ''">type =  #{type},</if>
+    <if test="bed != ''">bed =  #{bed},</if>
+    <if test="bath != ''">bath =  #{bath},</if>
+    <if test="content != ''">cont =  #{content},</if>
+    <if test="details != ''">dets =  #{details},</if>
+    <if test="reservation != ''">reva =  #{reservation},</if>
+    <if test="welcome != ''">come =  #{welcome},</if>
+    <if test="traffic != ''">traf =  #{traffic},</if>
+    <if test="name != ''">rm_name =  #{name},</if>
+    <if test="price != ''">rm_chge =  #{price},</if>
+    <if test="maxPerson != ''">max_ple = #{maxPerson},</if>
+    <if test="postcode != ''">post_code =  #{postcode},</if>
+    <if test="address != ''">addr =  #{address},</if>
+    <if test="detailAddress != ''">dtil_addr =  #{detailAddress},</if>
+    <if test="latitude != ''">lati =  #{latitude},</if>
+    <if test="longitude != ''">longi =  #{longitude},</if>
+    <if test="grade != ''">grd =  #{grade},</if>
+    <if test="thumbnail != ''">thum =  #{thumbnail}</if>
+      </set>
+      where
+      rms_id=#{no}
+  </update>
+  
+  <update id="cecoUpdate" parameterType='map'>
+    update rms
+      <set>
+        <if test="acti != null">activation =  #{acti},</if>
+        <if test="msg != null">reject_memo =  #{msg}</if>
+      </set>
+    where
+      rms_id = #{no}
+        
+  </update>
+  
+  <insert id="insertConvenience" parameterType="list">
+    INSERT INTO rms_amn(
+      amn_id, 
+      rms_id)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      ("${item.no}", "${item.roomNo}")
+    </foreach>
+  </insert>
+  
+  <insert id="insertSafety" parameterType="list">
+    INSERT INTO rms_safety(
+      safety_id, 
+      rms_id)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      ("${item.no}", "${item.roomNo}")
+    </foreach>
+  </insert>
+  
+ <select id="findAll" resultMap="roomMap" parameterType="map">
+    select
+      rms_id,
+      rm_name,
+      rm_chge,
+      area,
+      bed,
+      bath,
+      thum,
+      lati,
+      longi
+    <choose>
+      <when test="lati != null and longi != null">
+      <![CDATA[
+          ,(6371*acos(cos(radians(#{lati}))
+          *cos(radians(lati))
+          *cos(radians(longi)-radians(#{longi}))+sin(radians(#{lati}))*sin(radians(lati))))
+          AS distance
+        from
+          rms
+        where
+          activation = 1
+        HAVING distance <= 5
+        ORDER BY distance 
+      ]]>
+      </when>
+      <when test="lati == null and longi == null">
+        from
+          rms
+        where
+          activation = 1
+        order by
+          rms_id desc
+      </when>
+    </choose>
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <select id="findhpriceAll" resultMap="roomMap" parameterType="map">
+    select
+      rms_id,
+      rm_name,
+      rm_chge,
+      area,
+      bed,
+      bath,
+      thum,
+      lati,
+      longi
+    <choose>
+      <when test="lati != null and longi != null">
+      <![CDATA[
+          ,(6371*acos(cos(radians(#{lati}))
+          *cos(radians(lati))
+          *cos(radians(longi)-radians(#{longi}))+sin(radians(#{lati}))*sin(radians(lati))))
+          AS distance
+        from
+          rms
+          where activation = 1
+        HAVING distance <= 5
+        ORDER BY rm_chge desc 
+      ]]>
+      </when>
+      <when test="lati == null and longi == null">
+        from
+          rms
+          where activation = 1
+        order by
+          rm_chge desc
+      </when>
+    </choose>
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <select id="findrpriceAll" resultMap="roomMap" parameterType="map">
+    select
+      rms_id,
+      rm_name,
+      rm_chge,
+      area,
+      bed,
+      bath,
+      thum,
+      lati,
+      longi
+    <choose>
+      <when test="lati != null and longi != null">
+      <![CDATA[
+          ,(6371*acos(cos(radians(#{lati}))
+          *cos(radians(lati))
+          *cos(radians(longi)-radians(#{longi}))+sin(radians(#{lati}))*sin(radians(lati))))
+          AS distance
+        from
+          rms
+          where activation = 1
+        HAVING distance <= 5
+        ORDER BY rm_chge asc 
+      ]]>
+      </when>
+      <when test="lati == null and longi == null">
+        from
+          rms
+          where activation = 1
+        order by
+          rm_chge asc
+      </when>
+    </choose>
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <select id="findhotAll" resultMap="roomMap" parameterType="map">
+    select
+      rms_id,
+      rm_name,
+      rm_chge,
+      area,
+      bed,
+      bath,
+      thum,
+      lati,
+      longi
+    <choose>
+      <when test="lati != null and longi != null">
+      <![CDATA[
+          ,(6371*acos(cos(radians(#{lati}))
+          *cos(radians(lati))
+          *cos(radians(longi)-radians(#{longi}))+sin(radians(#{lati}))*sin(radians(lati))))
+          AS distance
+        from
+          rms
+          where activation = 1
+        HAVING distance <= 5
+        ORDER BY 
+          grd desc 
+      ]]>
+      </when>
+      <when test="lati == null and longi == null">
+        from
+          rms
+          where activation = 1
+        order by
+          grd desc
+      </when>
+    </choose>
+   
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  
+  <select id="countAll" resultType="int" parameterType="map">
+  <choose>
+      <when test="lati != null and longi != null">
+      <![CDATA[
+          select 
+            count(a.distance) 
+          from (select (6371*acos(cos(radians(#{lati}))
+            *cos(radians(lati))*cos(radians(longi)-radians(#{longi}))+sin(radians(#{lati}))*sin(radians(lati))))
+          AS distance
+        from rms
+        where
+          activation = 1
+        HAVING distance <= 5) as a
+      ]]>
+      </when>
+      <when test="lati == null and longi == null">
+        select count(*) from rms where activation = 1
+      </when>
+    </choose>
+  </select>
+  
+  <select id="findByNo" resultMap="roomPhotoMap" parameterType="int">
+    select DISTINCT
+      r.rms_id,
+      r.usr_id,
+      r.area,
+      r.type,
+      r.bed,
+      r.bath,
+      r.cont,
+      r.dets,
+      r.reva,
+      r.come,
+      r.traf,
+      r.rm_name,
+      r.rm_chge,
+      r.max_ple,
+      r.post_code,
+      r.addr,
+      r.dtil_addr,
+      r.lati,
+      r.longi,
+      r.cdt,
+      r.grd,
+      r.thum,
+      a.amn,
+      a.amn_id,
+      s.safety,
+      s.safety_id,
+      p.r_photo_id,
+      p.rm_photo
+    from
+      rms r
+    left outer join
+      rms_amn ra on r.rms_id=ra.rms_id
+    left outer join
+      amn a on a.amn_id=ra.amn_id
+    left outer join
+      rms_safety rs on r.rms_id=rs.rms_id
+    left outer join
+      safety s on s.safety_id=rs.safety_id
+    left outer join
+      rm_photo p on r.rms_id=p.rms_id
+    where
+      r.rms_id=#{value} and activation = 1
+  </select>
+  
+    <select id="findByRoom" resultMap="roomPhotoMap" parameterType="int">
+    select DISTINCT
+      r.rms_id,
+      r.usr_id,
+      r.area,
+      r.type,
+      r.bed,
+      r.bath,
+      r.cont,
+      r.dets,
+      r.reva,
+      r.come,
+      r.traf,
+      r.rm_name,
+      r.rm_chge,
+      r.max_ple,
+      r.post_code,
+      r.addr,
+      r.dtil_addr,
+      r.lati,
+      r.longi,
+      r.cdt,
+      r.grd,
+      r.thum,
+      a.amn,
+      a.amn_id,
+      s.safety,
+      s.safety_id,
+      p.r_photo_id,
+      p.rm_photo
+    from
+      rms r
+    left outer join
+      rms_amn ra on r.rms_id=ra.rms_id
+    left outer join
+      amn a on a.amn_id=ra.amn_id
+    left outer join
+      rms_safety rs on r.rms_id=rs.rms_id
+    left outer join
+      safety s on s.safety_id=rs.safety_id
+    left outer join
+      rm_photo p on r.rms_id=p.rms_id
+    where
+      r.rms_id=#{value}
+  </select>
+  
+  <select id="findByHostRoomList" resultMap="roomMap" parameterType="map">
+    select
+      usr_id,
+      rms_id,
+      area,
+      cont,
+      thum,
+      rm_chge,
+      rm_name,
+      max_ple,
+      activation,
+      reject_memo
+    from
+      rms
+    where
+      usr_id=#{no}
+    order by
+      cdt desc 
+      <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+    <select id="findByCecoRoomList" resultMap="roomMap" parameterType="map">
+    select
+      usr_id,
+      rms_id,
+      area,
+      cont,
+      thum,
+      rm_chge,
+      rm_name,
+      max_ple
+    from
+      rms
+    where
+      activation=#{no}
+      <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <select id="hostcountAll" resultType="int" parameterType="int">
+    select count(*) from rms where usr_id=#{no}
+  </select>
+  <select id="cecoRoomCountAll" resultType="int" parameterType="int">
+    select count(*) from rms where activation=#{no}
+  </select>
+  
+  
+    <delete id="delete" parameterType="int">
+    delete from rms 
+    where rms_id = #{value}
+  </delete>
+    <delete id='amnDelete' parameterType="int">
+  delete from rms_amn
+  where rms_id =#{value}
+  </delete>
+    <delete id='safetyDelete' parameterType="int">
+  delete from rms_safety
+  where rms_id= #{value}
+  </delete>
+  
+  <select id="getRoomName" parameterType="int" resultType="String">
+    select rm_name from rms where rms_id = #{no};
+  </select>
+  
+  
+</mapper>     
+
+
+
+ 
+
+
+
+
+
+

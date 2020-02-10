@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>리뷰 관리</title>
+
+<link rel="shortcut icon" href="/heunheuntrip/img/favicon.ico">
+<link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link href="../../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="../../../lib/animate.css" rel="stylesheet">
+<link href="../../../lib/selectric/selectric.css" rel="stylesheet">
+<link href="../../../lib/aos/aos.css" rel="stylesheet">
+<link href="../../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+<link href="../../../css/style.css" rel="stylesheet">
+<link href="../../../css/colors/blue.css" rel="stylesheet">
+<link rel="stylesheet" href="css/hostlist.css">
+<link rel="stylesheet" href="../../star/star-rating-svg.css">
+<link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic" rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="/heunheuntrip/html/header.css">
+
+<script src="../../../lib/jquery-3.2.1.min.js"></script>
+<script src="../../../lib/popper.min.js"></script>
+<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../lib/selectric/jquery.selectric.js"></script>
+<script src="../../../lib/aos/aos.js"></script>
+<script src="../../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+<script src="../../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+<script src="../../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+<script src="../../../lib/lib.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="../../../node_modules/handlebars/dist/handlebars.js"></script>
+<script src="../../js/handlebars-paginate.js"></script>
+<script src="../../../star/jquery.star-rating-svg.js"></script>
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript"
+  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services"></script>
+
+<style>
+  .mb50 {
+    margin-bottom: 10px !important;
+  }
+  
+  .text-success {
+      color: #d3d3d3 !important;
+  }
+  
+  .main-title {
+    margin-bottom: 15px;
+    line-height: 34px;
+    color: #777777;
+}
+</style>
+</head>
+
+<body>
+  <div id="main">
+    <div id='heun-header'></div>
+    <div class="clearfix"></div>
+    <div id="content">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-12 col-xl-10">
+            <div class="row has-sidebar">
+              <div class="col-md-5 col-lg-4 col-xl-4 col-sidebar">
+                <div id="sidebar" class="sidebar-left">
+                  <div class="sidebar_inner">
+                   <div class="agent-detail"> 
+                    <div class="text-center">
+                      <div id='profileimg'></div>
+                    <h4 class="main-name" style=" color: #4682B4; font-weight:bold;"></h4>
+                    </div>
+                   </div>
+                    <div class="list-group no-border list-unstyled">
+                      <a href="host_profile.html" class="list-group-item"> <i
+                        class="far fa-id-card"></i> 호스트 프로필
+                      </a> <a href="host_password.html" class="list-group-item "> <i
+                        class="fas fa-unlock-alt"></i> 비밀번호 변경
+                      </a> <a href="hostlist.html" class="list-group-item active"> <i class="fas fa-h-square"></i> 등록한 숙소</a> 
+                      <a href="hostReservation.html" class="list-group-item"> <i class="far fa-bell"></i> 예약 관리</a>
+                      <a href="hostreview.html" class="list-group-item"> <i class="fas fa-sliders-h"></i> 리뷰 관리</a>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7 col-lg-8 col-xl-8">
+                <div class="page-header bordered">
+                <div class="row">
+                  <div class="col-9">
+	                  <h1>
+	                    내 숙소<small>My room</small>
+	                  </h1>
+                  </div>
+                  <div class="col-3">
+                   <button type='button'class='btn btn-new hvr-fade dd' id='btn1' onclick="location.href='/heunheuntrip/html/room/form.html'">숙소 등록하기</button>
+                  
+                  </div>
+                </div>
+                  <div class="clearfix"></div>
+                  
+                  <!-- 핸들바스 적용지점 -->
+                  <div class="item-listing list"></div>
+                  <div class="pagination-menu"></div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <button class="btn btn-primary btn-circle" id="to-top">
+      <i class="fa fa-angle-up"></i>
+    </button>
+  </div>
+  <div id='heun-footer'></div>
+  <!-- 핸들바스 -->
+  <script id="tr-template" type="text/x-handlebars-template">
+    {{#each list}}
+              <div class="item">
+                <div class="row">
+                  <div class="col-lg-5">
+                    <div class="item-image"> 
+    
+                      <a>
+                        <img src="/heunheuntrip/app/json/images/down/{{thumbnail}}" class="img-fluid" alt="">
+                      </a>
+                      <div class="rev-state">
+                     
+                                           
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-7 heun-css">
+               
+                  <div class="item-info">
+                    <div class="item-details">
+                      <ul>
+                        <li>지역명<span>{{area}}</span></li>
+                        <li>숙소명<span>{{name}}</span></li> 
+                        <li>숙소 가격<span>{{price}}</span></li>
+                        <li>숙소 최대 인원<span>{{maxPerson}}</span></li>
+                        {{#if state}}
+                        <li>승인 여부<span>미승인</span></li>
+                           {{else if restate}}
+                        <li data-toggle="modal" data-target="#cecoform">승인 여부<span data-toggle="tooltip" data-placement="top" title="승인 거절 이유를 확인하실려면 클릭해주세요" class="cece-no-msg"  data-msg="{{rjmo}}"  style="color: red;">
+                                    <i class="fas fa-ban"  style="margin-right: 3px;"></i>
+                                    <a href="#" style="color: red;">승인 거절</a></span></li>
+                            {{else}}
+                                <li>승인 여부<span>승인</span></li>
+                        {{/if}}
+                      </ul>
+                       
+                    <button type="button" class="btn btn-sm btn-secondary riw-write" onclick="location.href='/heunheuntrip/html/room/updateform.html?no={{no}}'">수정</button>
+                    <button type="button" class="btn btn-sm btn-secondary riw-write del" data-no="{{no}}">삭제</button>
+                    <button type="button" class="btn btn-sm btn-secondary riw-write roomcontent" data-toggle="modal" data-target="#leadform" data-no="{{no}}">상세 보기</button>
+ 
+                          
+                    </div>
+                 </div>
+                  </div>
+                </div>
+              </div>
+   {{/each}}
+
+  </script>
+  
+    <script id="page-template" type="text/x-handlebars-template">
+    <nav>
+      <ul class="pagination pagination-centered">
+        {{#paginate pagination type="first"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="Loadroomlist({{n}})">&laquo;&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="previous"}}
+          <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="Loadroomlist({{n}})">&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="middle" limit="4"}}
+          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="Loadroomlist({{n}})">{{n}}</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="next"}}
+          <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" href="#" onclick="Loadroomlist({{n}})">&raquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="last"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="Loadroomlist({{n}})">&raquo;&raquo;</a></li>
+        {{/paginate}}
+    </ul>
+    </nav>
+  </script>
+  <!-- Lead Form Modal -->
+  <div class="modal fade  item-badge-rightm" id="leadform" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="media">
+            <div class="media-left"></div>
+            <div class="media-body">
+
+              <div class="row no-gutters">
+                <div class='col'>
+                  <img class="media-object room-photo" src="" width="120" height="120" alt=""
+                    style="margin-top: 10px; border-radius: 7px;">
+                </div>
+                <div class="col-10 col-sm-5 col-md-7 modal-p-magin" style="margin-left: 10px">
+                  <h5 class="room-name" style="font-weight: bold; color: #4682b4"></h5>
+                  <p class="room-area"></p>
+                  <p class="room-address"></p>
+                  <p class="room-price" style="margin-top: 3px; margin-right: 0px; width: 100px;"></p>
+                </div>
+                <span class="room-type" style="margin-top:10px"></span> 
+                <span class="room-maxperson"style="margin-top:10px"></span>
+                <span class="room-bed" style="margin-top:10px"></span>
+                <span class="room-bath" style="margin-top:10px"></span>
+                <div class="form-group green-border-focus">
+                  <h5 class='mar'style="font-weight: bold; color: #4682b4;">숙소 설명</h5>
+                  <div class='a'>
+                  <textarea id='room-content' rows="4" class="form-control" style="border: 0px; width:320px; background-color: white;" readonly></textarea>
+                    </div>
+                </div>
+                <div class="form-group green-border-focus">
+                  <h5 class='mar'style="font-weight: bold; color: #4682b4;">숙소예약가능여부</h5>
+                  <textarea id='room-reservation' rows="2" class="form-control" style="border: 0px; width:320px; background-color: white" readonly></textarea>
+                </div>
+                <div class="form-group green-border-focus">
+                  <h5 class='mar'style="font-weight: bold; color: #4682b4;">여부숙소</h5>
+                  <textarea id='room-details' rows="2" class="form-control" style="border: 0px; width:320px; background-color: white" readonly></textarea>
+                </div>
+                <div class="form-group green-border-focus" style="margin-bottom: -10px;">
+                  <h5 class='mar'style="font-weight: bold; color: #4682b4;">주변 볼거리,먹거리</h5>
+                  <textarea id='room-welcome' rows="2" class="form-control" style="border: 0px; width:320px; background-color: white" readonly></textarea>
+                </div>
+                <div class="form-group green-border-focus">
+                  <h5 class='mar'style="font-weight: bold; color: #4682b4;">교통편</h5>
+                  <textarea id='room-traffic' rows="2" class="form-control" style="border: 0px; width:320px; background-color: white" readonly></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer" style=" text-center; margin: auto;">
+          <button type="button" class="btn btn-sm btn-secondary riw-write" data-dismiss="modal">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="cecoform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <h5 class='mar' style="color: #4682b4">승인 거절 이유:</h5>
+            <textarea class="form-control" id="message-text" rows="4"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src='../common_profile.js'></script>
+  <script src='./js/hostlist.js'></script>
+  
+</body>
+
+</html> 
