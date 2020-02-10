@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <title>HeunheunTrip</title>
+
+  <link rel="shortcut icon" href="/heunheuntrip/img/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../../lib/animate.css" rel="stylesheet">
+  <link href="../../lib/selectric/selectric.css" rel="stylesheet">
+  <link href="../../lib/swiper/css/swiper.min.css" rel="stylesheet">
+  <link href="../../lib/aos/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../lib/photoswipe/photoswipe.css">
+  <link rel="stylesheet" href="../../lib/photoswipe/default-skin/default-skin.css">
+  <link href="../../css/style.css" rel="stylesheet">
+  <link href="../../css/colors/blue.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../lib/jquery-date-range-picker-master/dist/daterangepicker.css" />
+  <link rel="stylesheet" href="../../star/star-rating-svg.css">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic"
+    rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/heunheuntrip/html/header.css">
+
+  <script src="../../lib/jquery-3.2.1.min.js"></script>
+  <script src="../../lib/popper.min.js"></script>
+  <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../../lib/selectric/jquery.selectric.js"></script>
+  <script src="../../lib/swiper/js/swiper.min.js"></script>
+  <script src="../../lib/aos/aos.js"></script>
+  <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+  <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="../../lib/photoswipe/photoswipe.min.js"></script>
+  <script src="../../lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  <script src="../js/handlebars-paginate.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript"
+    src="../../lib/jquery-date-range-picker-master/dist/jquery.daterangepicker.min.js"></script>
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
+  <script src="../../star/jquery.star-rating-svg.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+  <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+
+  <style>
+    .customoverlay {
+      position: relative;
+      bottom: 85px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      border-bottom: 2px solid #ddd;
+      float: left;
+    }
+
+    .customoverlay:nth-of-type(n) {
+      border: 0;
+      box-shadow: 0px 1px 2px #888;
+    }
+
+    .customoverlay a {
+      display: block;
+      text-decoration: none;
+      color: #000;
+      text-align: center;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+      overflow: hidden;
+      background: #d95050;
+      background: #d95050 url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
+    }
+
+    .customoverlay .title {
+      display: block;
+      text-align: center;
+      background: #fff;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin-right: 35px;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .customoverlay:after {
+      content: '';
+      position: absolute;
+      margin-left: -12px;
+      left: 50%;
+      bottom: -12px;
+      width: 22px;
+      height: 12px;
+      background:
+        url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+    }
+
+    .date-picker-wrapper {
+      position: absolute;
+      z-index: 1;
+      padding: 5px 12px;
+      line-height: 20px;
+      font-family: Arial, sans-serif;
+      -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+      -webkit-box-sizing: initial;
+      box-sizing: initial;
+      background-color: white;
+      margin-left: 50px;
+    }
+
+    .media-left {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+
+    .comments .comment-input-box {
+      margin-top: 50px;
+      padding: 30px 30px 45px 30px;
+      background-color: rgba(134, 158, 158, 0.1);
+    }
+
+    .comments .btn-delete {
+      background-color: rgba(134, 158, 158, 0.1);
+      padding-left: 15px;
+      padding-right: 15px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 15px;
+      color: #869e9e;
+      margin-left: 15px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      float: right;
+      font-weight: 600;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main">
+    <div id="heun-header"></div>
+
+    <div id="heun-detail"></div>
+
+    <script id="detail-template" type="text/x-handlebars-template">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-md-12 col-lg-12 col-xl-11">
+            <div class="page-header bordered mb0">
+              <div class="row">
+                <div class="col-md-8"> <a href="#" onClick="history.back()" class="btn-return" title="Back"><i class="fa fa-angle-left"></i></a>
+                  <h1>{{name}}
+                    <small><i class="fas fa-map-marker-alt"></i> {{area}}</small>
+                  </h1>
+                </div>
+                <div class="col-md-4">
+                  <div class="price">￦ {{price}}원</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="content" class="item-single">
+        <div class="container">
+          <div class="row justify-content-md-center">
+            <div class="col col-md-12 col-lg-12 col-xl-11">
+              <div class="row row justify-content-md-center has-sidebar">
+
+                <div class="col-md-6 col-lg-7">
+                  <div>
+                    <div class="item-gallery">
+                      <div class="swiper-container gallery-top" data-pswp-uid="1">
+                        <div class="swiper-wrapper lazyload">
+                          {{#each photos}}
+                            <div class="swiper-slide">
+                              <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject"> <a
+                                  href="/heunheuntrip/app/json/images/down/{{name}}" itemprop="contentUrl" data-size="2000x1414"> <img
+                                    src="/heunheuntrip/app/json/images/down/{{name}}_veiwthum" class="img-fluid swiper-lazy" alt="Drawing Room"> </a>
+                              </figure>
+                            </div>
+                          {{/each}}
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                      </div>
+                      <div class="swiper-container gallery-thumbs">
+                        <div class="swiper-wrapper">
+                          {{#each photos}}
+                            <div class="swiper-slide"><img src="/heunheuntrip/app/json/images/down/{{name}}_veiwthum" class="img-fluid" alt="">
+                            </div>
+                          {{/each}}
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="item-description">
+                        <h3 class="headline">숙소 정보</h3>
+
+                        <p><strong>숙소설명</strong></p>
+                        {{{content}}}
+
+                        {{#if isDetails}}
+                          <p><strong>세부정보</strong></p>
+                          {{{details}}}
+                        {{/if}}
+
+                        {{#if isReservation}}
+                          <p><strong>호스트와 교류</strong></p>
+                          {{{reservation}}}
+                        {{/if}}
+
+                        {{#if isWelcome}}
+                          <p><strong>주변정보</strong></p>
+                          {{{welcome}}}
+                        {{/if}}
+
+                        {{#if isTraffic}}
+                          <p><strong>교통편</strong></p>
+                          {{{traffic}}}
+                        {{/if}}
+
+                      </div>
+
+                      <h3 class="headline">편의시설</h3>
+                      <ul class="checked_list feature-list">
+                        {{#each conveniences}}
+                          <li>{{name}}</li>
+                        {{/each}}
+                      </ul>
+
+                      <h3 class="headline">안전시설</h3>
+                      <ul class="checked_list feature-list">
+                        {{#each safeties}}
+                          <li><strong>{{safety}}</strong></li>
+                        {{/each}}
+                      </ul>
+                    
+                      <h3 class="headline">후기</h3>
+                   
+                      <div id="review"></div>
+                      <div class="pagination-menu"></div>
+                      
+
+                      <h3 class="headline">예약 가능 여부</h3>
+                      <div class="row">
+                        <div id="date-range12-container"></div>
+                      </div>
+
+                      <div class="item-navigation">
+
+                        <ul class="nav nav-tabs v2" role="tablist">
+                          <li role="presentation">
+                            <a href="#map" aria-controls="map" role="tab" data-no="0" data-toggle="tab" class="active map-btn">
+                              <i class="fa fa-map"></i> 
+                              <span class="hidden-xs">맛집</span>
+                            </a>
+                          </li>
+                          <li role="presentation">
+                            <a href="#" aria-controls="streetview" role="tab" data-no="1" data-toggle="tab" class="map-btn">
+                              <i class="fa fa-road"></i>
+                              <span class="hidden-xs">명소</span>
+                            </a>
+                          </li> 
+                        </ul> 
+    
+                        <div class="tab-content" style="
+                        border: 1px solid blue;">
+                          <div role="tabpanel" class="tab-pane active" id="map">
+                            <div id="daum-map1" width="600" height="450" style="border:0; height:450px;" allowfullscreen></div>
+                          </div>
+                          <div role="tabpanel" class="tab-pane" id="streetview">
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="item-description">
+                        <h3 class="headline">환불 정책</h3>
+                        <p><strong>숙소 이용규칙</strong></p>
+                        <p>반려동물 동반 불가</p>
+                        <p>흡연, 파티 또는 이벤트 금지</p>
+                        <p>체크인 시간: 16:00 이후 언제나, 체크아웃 시간: 11:00까지</p>
+                        <hr>
+                        <p><strong>예약 취소</strong></p>
+                        <p>체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.</p>
+                        <p>체크인까지 30일이 남지 않은 시점에 예약을 취소하면 수수료를 포함한 총 숙박 요금의 50%가 환불됩니다.</p>
+                        <p>숙박 중 예약을 취소하면 일부 환불을 요청할 수 있습니다.</p>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 col-lg-5">
+                  <div id="sidebar" class="sidebar-right">
+                    <div class="sidebar_inner">
+
+                      <div id="feature-list" role="tablist">
+                        <div class="card">
+                          <div class="card-header" role="tab" id="headingOne">
+                            <h4 class="panel-title"> 
+                              요금을 확인하려면 날짜를 입력하세요.
+                            </h4>
+                          </div>
+                          <div id="specification" class="panel-collapse collapse show" role="tabpanel">
+                            <div class="card-body">
+
+                              <div class="form-group" id="input-date">
+                                <label for="input-date"><span class="align-bottom">날짜</span></label>
+                                <div id="heun-datetime" class="input-group">
+                                  <input type="text" class="form-control heun-h1 heun-datein" placeholder="체크인">
+                                  <div class="input-group-text" style="background-color: white;">
+                                    <svg  style="height: 24px; width: 24px; display: block; fill: currentcolor;">
+                                      <path d="m0 12.5a.5.5 0 0 0 .5.5h21.79l-6.15 6.15a.5.5 0 1 0 .71.71l7-7v-.01a.5.5 0 0 0 .14-.35.5.5 0 0 0 -.14-.35v-.01l-7-7a .5.5 0 0 0 -.71.71l6.15 6.15h-21.79a.5.5 0 0 0 -.5.5z" fill-rule="evenodd"></path>
+                                    </svg>
+                                  </div>
+                                  <input type="text" class="form-control heun-h2 heun-datein" placeholder="체크아웃">
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label for="input-m"><span class="align-bottom">인원</span></label>
+                                
+                                <button id="input-m" type="button" class="form-control dropdown-toggle drop-people" data-p="1" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                                  인원 1명
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-lg-right drop-item-p">
+                                  {{#each persons}}
+                                  <button class="dropdown-item heun-drop" style="text-align: center" type="button" data-p="{{i}}">인원 {{i}}명</button>
+                                  {{/each}}
+                                </div>
+                              </div>
+
+                              <table id="price-table" class="table v1">
+                              </table>
+
+                            </div>
+                            <a href="#" id="heun-rev" class="btn btn-lg btn-primary btn-block" data-price="{{originprice}}">날짜 입력</a>
+                          </div>
+                        </div>
+                      </div>
+
+                     <div class="host-profile" data-no="{{hostNo}}"></div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+          <!-- Lead Form Modal -->
+    <div class="modal fade  item-badge-rightm" id="leadform" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="page-header v2 bordered text-center" style="margin-bottom: 0px;">
+            <h1>확인 및 결제</h1>
+          </div>
+          <div class="modal-header">
+            <div class="media">
+              <div class="media-left"><img src="/heunheuntrip/app/json/images/down/{{thumbnail}}" width="60" class="img-rounded mt5" alt=""></div>
+              <div class="media-body">
+                <h4 class="media-heading">{{name}}</h4>
+                {{area}}
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <p><i class="fas fa-user-friends"></i><span id="heun-modal-person"></span></p>
+                  <p><i class="fas fa-calendar-week"></i><span id="heun-modal-day"></span></p>
+                </li>
+                <li class="list-group-item">
+                    <dl class="row" style="padding-bottom: 0px; margin-bottom: -10px;">
+                      <dt id="heun-modal-cal" class="col-sm-6"></dt>
+                      <dd id="heun-modal-sum" class="col-sm-6"></dd>
+                      <dt class="col-sm-6">부가세</dt>
+                      <dd id="heun-modal-tex" class="col-sm-6"></dd>
+                    </dl>                      
+                </li>
+                <li class="list-group-item">
+                    <dl class="row h5 h6 font-weight-bold">
+                      <dt class="col-sm-6">총 합계(원)</dt>
+                      <dd id="heun-modal-texsum" class="col-sm-6"></dd>
+                    </dl>
+                </li>
+                <li class="list-group-item">
+                  숙소 이용규칙, 환불 정책, 및 게스트 환불 정책에 동의합니다. 또한, 서비스 수수료를 포함하여 명시된 총 금액을 결제하는 데 동의합니다.
+                </li>
+                <li class="list-group-item">
+                  <div class="form-group" style="margin-bottom: 0px;">
+                    <label>결제 방식을 선택해주세요.</label>
+                    <div>
+                      <div class="radio radio-inline">
+                        <input type="radio" name="type" id="samsung" value="samsung">
+                        <label for="samsung">삼성페이</label>
+                      </div>
+                      <div class="radio radio-inline">
+                        <input type="radio" name="type" id="card" value="card">
+                        <label for="card">신용카드</label>
+                      </div>
+                      <div class="radio radio-inline">
+                        <input type="radio" name="type" id="trans" value="trans">
+                        <label for="trans">실시간계좌이체</label>
+                      </div>
+                      <div class="radio radio-inline">
+                        <input type="radio" name="type" id="vbank" value="vbank">
+                        <label for="vbank">가상계좌</label>
+                      </div>
+                      <div class="radio radio-inline">
+                        <input type="radio" name="type" id="phone" value="phone">
+                        <label for="phone">휴대폰소액결제</label>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">취소</button>
+            <button type="button" id="heun-pay" class="btn btn-primary">결제하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </script>
+
+
+
+    <script id="review-template" type="text/x-handlebars-template">
+{{#each list}}
+   <div class="comments">
+      
+
+       <div class="media">
+         <div class="media-left"> </div>
+         <div class="media-body">
+            <a id="cont-{{no}}" href="#" class="btn-reply heun-reply" data-no="{{no}}" data-userNo ="{{userNo}}" data-reply ="{{reply}}"><i class="fa fa-reply "></i> 답글</a>
+            <h5 class="media-heading author" style="margin-bottom:0px">{{name}}  
+            <a id="delete1-{{no}}" style="float:right" href="#" data-name="{{name}}" data-no="{{no}}" class="btn-delete delete1" ><i class="fas fa-trash-alt"></i> 삭제</a>
+            </h5>
+            <div id="star-{{no}}" class="review-rating" data-grd="{{grd}}"></div>
+            <div class="date" style="padding-left: 2px;">{{createdDate}}</div>
+            <div class="comment" style="padding-left: 2px;">{{contents}}</div>
+
+
+            <div  class="comment-input-box cont-{{no}}" id="post-comment">
+              <div class="form-group">
+                <label for="comment">Comment</label>
+                <textarea id="comment" class="form-control reply-{{no}}" placeholder="답변을 작성해주세요"></textarea>
+                </div>
+                <div class="form-group">
+               <button type="button" class="btn btn-sm btn-primary reply-submit pull-right" style="margin-bottom:10px">등록</button>
+             </div>
+           </div>
+
+          <div class="media"   id="no-reply-{{no}}">
+              <div class="media-left"></div>
+              <div class="media-body">
+                <h5 class="media-heading author" style="margin-bottom:0px" id="aaa-{{no}}" data-reply="{{reply}}">{{hostname}}
+                <a id="delete2-{{no}}" href="#" style="float:right" class="btn-delete delete2" data-no={{no}}><i class="fas fa-trash-alt"></i> 삭제</a>
+                </h5>
+                <div class="date" style="padding-left: 2px;">{{replyDate}}</div>
+                <div class="comment" style="padding-left: 2px;">{{reply}}</div></div>
+                
+             </div>
+
+           </div>
+         </div>
+      </div>
+{{/each}}
+</script>
+
+    <script id="hostProfile-template" type="text/x-handlebars-template">
+
+<div class="card shadow">
+<h5 class="subheadline mt-0  mb-0">호스트</h5>
+<div class="media">
+  <div class="media-left"> 
+      <img class="media-object rounded-circle" src="/heunheuntrip/app/json/images/down/{{photo}}" width="64" height="64" alt=""> 
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">{{name}}</h4>
+    <p>가입일 : {{createdDate}}</p>
+    <p><i class="fa fa-star" aria-hidden="true" style="color: #ffd700"></i></i>   후기 : {{count}}개</a></p>
+  </div>
+</div>
+</div>
+
+</script>
+
+
+
+    <script id="page-template" type="text/x-handlebars-template">
+ <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      {{#paginate pagination type="first"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" onclick="roomreview({{n}})">&laquo;&laquo;</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="previous"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" onclick="roomreview({{n}})">&laquo;</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="middle" limit="3"}}
+        <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' onclick="roomreview({{n}})">{{n}}</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="next"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" onclick="roomreview({{n}})">&raquo;</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="next"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" onclick="roomreview({{n}})">&raquo;&raquo;</a></li>
+      {{/paginate}}
+    </ul>
+  </nav>
+    </script>
+
+
+
+    <script type="text/javascript">
+      jQuery.jQueryAlert = function (msg) {
+        var $messageBox = $.parseHTML('<div id="alertBox"></div>');
+        $("body").append($messageBox);
+
+        $($messageBox).dialog({
+          open: $($messageBox).append(msg),
+          title: "경고창",
+          autoOpen: true,
+          modal: true,
+          buttons: {
+            OK: function () {
+              $("#alertBox").dialog("close");
+            }
+          }
+        });
+      };
+    </script>
+
+    <button class="btn btn-primary btn-circle" id="to-top">
+      <i class="fa fa-angle-up"></i>
+    </button>
+
+    <div class="modal fade riw-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border-radius: 5px; border: 0px solid white;">
+          <div class="modal-header" style="background-color: #3b8ced">
+            <h5 class="modal-title" id="exampleModalLabel" style="color: white;">후기작성</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <h4>후기를 작성해주세요.</h4>
+              <small>평점을 매겨주세요.</small>
+
+              <div class="my-rating"></div>
+              <div class="form-group">
+                <textarea class="form-control" id="message-text" style="border-radius: 10px;"
+                  placeholder="후기를 작성해 주세요!"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+            <button type="button" class="btn btn-primary add-btn">등록</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="heun-footer"></div>
+  </div>
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element, as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+      <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+      <!-- don't modify these 3 pswp__item elements, data is added later on. -->
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+
+      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+      <div class="pswp__ui pswp__ui--hidden">
+
+        <div class="pswp__top-bar">
+
+          <!--  Controls are self-explanatory. Order can be changed. -->
+
+          <div class="pswp__counter"></div>
+
+          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+          <button class="pswp__button pswp__button--share" title="Share"></button>
+
+          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+          <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+          <!-- element will get class pswp__preloader--active when preloader is running -->
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+          <div class="pswp__share-tooltip"></div>
+        </div>
+
+        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+
+        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="../../lib/lib.js"></script>
+
+  <script src="./js/viewLoad.js"></script>
+  <script src="./js/view.js"></script>
+</body>
+
+</html>

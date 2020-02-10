@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Heun Blog</title>
+
+	<link rel="shortcut icon" href="/heunheuntrip/img/favicon.ico">
+	<link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
+
+	<link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="../../lib/animate.css" rel="stylesheet">
+	<link href="../../lib/selectric/selectric.css" rel="stylesheet">
+	<link href="../../lib/aos/aos.css" rel="stylesheet">
+	<link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+	<link href="../../css/style.css" rel="stylesheet">
+	<link href="../../css/colors/blue.css" rel="stylesheet">
+	<link href="../../summernote/summernote-lite.css" rel="stylesheet">
+	<link href="view.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+	<link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic" rel="stylesheet">
+	<link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+	<link rel="stylesheet" href="/heunheuntrip/html/header.css">
+	
+
+	<script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+	<script src="../../lib/jquery-3.2.1.min.js"></script>
+	<script src="../../lib/popper.min.js"></script>
+	<script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../lib/selectric/jquery.selectric.js"></script>
+	<script src="../../lib/aos/aos.js"></script>
+	<script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+	<script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+	<script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+	<script src="../../summernote/summernote-lite.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<script src="../../lib/lib.js"></script>
+	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services"></script>
+</head>
+
+<body>
+	<div id="main">
+
+		<div id='heun-header'></div>
+
+
+		<div id="content">
+			<div class="container">
+
+				<h1></h1>
+
+				<div class="row justify-content-md-center">
+
+					<div class="col col-lg-12 col-xl-10">
+
+						<div class="page-header v2 bordered col-lg-12">
+							<div class="form-group-sm row">
+								<div class="col-sm-12">
+									<div class="item-meta-info">
+										<span class="createdDate" id="createdDate">생성일</span><br>
+										<span class="name" id='name'>작성자</span>
+									</div>
+									<div class="item-meta-info2">
+										<span class="heun-form heun-content" id='rmsName'>숙소</span><br>
+										<span class="grade" id='grade'>평점</span>
+									</div>
+									<input type="hidden" class="form-control" id="no" name='no'>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="clearfix"></div>
+
+						<div class="item-detail">
+
+							<div class="col-sm-12">
+								<pre class="heun-form heun-contents update-content" id='cont'></pre>
+								<div class="row justify-content-between">
+									<div class="like-buttons col-sm-5 col-md-5 col-lg-4 col-xl-3">
+										<button type="button" class="btn likecount h-40" ></button>
+										<a href="#" onclick="return false;" class="save-item like-btn h-40">
+											<span class='heart-btn' style="font-size: 2em;"><i
+													class="fas fa-heart" data-toggle="tooltip" data-placement="bottom" title="이 게시글이 마음에 든다면 좋아요를 눌러주세요"></i></span>
+										</a>
+									</div>
+									<div class="col-sm-5 col-md-5 col-lg-4 col-xl-3">
+										<div class="buttons">
+											<a href='index.html' class="btn btn-primary h-43">목록</a>
+											<button type="button" id="delete-btn"
+												class="btn btn-primary bit-view-item h-43">삭제</button>
+											<button type="button" id="update-btn"
+												class="btn btn-primary bit-view-item h-43">변경</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		<button class="btn btn-primary btn-circle" id="to-top">
+			<i class="fa fa-angle-up"></i>
+		</button>
+		<div id="heun-footer"></div>
+	</div>
+
+	<script src="view.js"></script>
+</body>
+
+</html>

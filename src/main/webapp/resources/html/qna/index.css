@@ -1,0 +1,92 @@
+
+.heun-btitle {
+	text-align: center;
+	margin: 40px;
+	font-weight: blod;
+}
+ 
+
+th:nth-child(1) {
+	text-align: center;
+	width: 60px;
+}
+
+th:nth-child(2) {
+	text-align: center;
+	width: 60px;
+}
+
+th:nth-child(3) {
+	text-align: center;
+	width: 100px;
+}
+
+th:nth-child(4) {
+	text-align: center;
+	width: 300px;
+}
+
+th:nth-child(5) {
+	text-align: center;
+	width: 150px;
+}
+
+th:nth-child(6) {
+	text-align: center;
+	width: 80px;
+}
+
+td:nth-child(2) {
+	text-align: center;
+}
+
+td:nth-child(3) {
+	text-align: center;
+}
+
+td:nth-child(5) {
+	text-align: center;
+}
+
+td:nth-child(6) {
+	text-align: center;
+}
+
+.search-form {
+	font-family: 'S-CoreDream-3Light';
+	margin: 0 auto;
+	width: 400px;
+}
+
+.pagination-menu {
+	margin: 0 auto;
+	width: 530px;
+}
+
+.search-choose {
+	margin-bottom: 8px;
+}
+
+.main-btn {
+	margin: 10px;
+	display: inline-block;
+}
+
+.searchselect {
+	margin-bottom: 10px;
+  width: 84px;
+}
+
+.main-search {
+	margin: 10px;
+	display: inline-block;
+	float: right;
+}
+
+.main-title {
+	margin-bottom: 0px;
+}
+
+.pagination-centered {
+	width: 400;
+}
