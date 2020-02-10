@@ -117,7 +117,7 @@
     <i class="fa fa-angle-up"></i>
   </button>
   <div id='heun-footer'></div>
-  <script src="kakao.js"></script>
-  <script src='signin.js'></script>
+  <script src="/mvc/resources/js/kakao.js"></script>
+  <script src='/mvc/resources/js/signin.js'></script>
 </body>
 </html>

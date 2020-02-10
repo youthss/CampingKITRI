@@ -183,6 +183,6 @@ input[type=password] {
     <i class='fa fa-angle-up'></i>
   </button>
   <div id='heun-footer'></div>
-  <script src='register.js'></script>
+  <script src='/mvc/resources/js/register.js'></script>
 </body>
 </html>

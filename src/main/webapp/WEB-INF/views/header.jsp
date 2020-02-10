@@ -42,4 +42,4 @@
     </div>
   </div>
 </nav>
-<script src='/heunheuntrip/html/header.js'></script>
+<script src='/mvc/resources/js/header.js'></script>

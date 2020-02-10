@@ -45,6 +45,11 @@ public class HomeController {
 		return "header";
 	}
 
+	@GetMapping(value = "footer")
+	public String footer() {
+		return "footer";
+	}
+
 	@GetMapping(value = "auth/signin")
 	public String sign() {
 		return "/auth/signin";

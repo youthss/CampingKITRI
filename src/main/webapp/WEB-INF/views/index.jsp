@@ -44,18 +44,6 @@
   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
   <!-- <script type="text/javascript"
   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services"></script> -->
-<script type="text/javascript">
-$(document).ready(function () {
-	console.log("야 일단 이 jquery는 작동한다");
-	  $("#heun-header").load("header", function() {
-	    $(".heun-search-form").hide();
-	  });
-	  $("#heun-footer").load("footer");
-	  
-	  loadList();
-
-	});
-</script>
 </head>
 
 <body>
