@@ -16,7 +16,7 @@ import org.springframework.core.env.Environment;
 
 
 @Configuration
-@PropertySource("classpath:/com/heun/trip/conf/sec.properties")
+@PropertySource("classpath:/com/camping/app/conf/sec.properties")
 public class Gmail {
   
   @Autowired 

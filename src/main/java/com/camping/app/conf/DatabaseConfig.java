@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
-@PropertySource("classpath:/com/heun/trip/conf/sec.properties")
+@PropertySource("classpath:/com/camping/app/conf/sec.properties")
 @EnableTransactionManagement
 public class DatabaseConfig {
   

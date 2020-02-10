@@ -10,7 +10,7 @@ import org.springframework.web.util.UrlPathHelper;
 
 import com.camping.app.web.interceptor.LogInterceptor;
 
-@ComponentScan("com.heun.trip.web")
+@ComponentScan("com.camping.app.web")
 @EnableWebMvc
 public class DefaultWebConfig implements WebMvcConfigurer {
   

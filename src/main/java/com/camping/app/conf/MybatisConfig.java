@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.heun.trip.dao") 
+@MapperScan("com.camping.app.dao") 
 public class MybatisConfig {
 
   final static Logger logger = LogManager.getLogger(MybatisConfig.class);
@@ -28,9 +28,9 @@ public class MybatisConfig {
     
     SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
     factoryBean.setDataSource(dataSource);
-    factoryBean.setTypeAliasesPackage("com.heun.trip.domain");
+    factoryBean.setTypeAliasesPackage("com.camping.app.domain");
     factoryBean.setMapperLocations(
-        appCtx.getResources("classpath:/com/heun/trip/mapper/*.xml"));
+        appCtx.getResources("classpath:/com/camping/app/mapper/*.xml"));
     
     LogFactory.useLog4J2Logging();
     

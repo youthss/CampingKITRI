@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>숙소등록</title>
+
+  <link rel="shortcut icon" href="/heunheuntrip/img/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../../lib/animate.css" rel="stylesheet">
+  <link href="../../lib/selectric/selectric.css" rel="stylesheet">
+  <link href="../../lib/aos/aos.css" rel="stylesheet">
+  <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
+  <link href="../../css/colors/blue.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  <link href="../../lib/fileuploader-2.2/dist/font/font-fileuploader.css" rel="stylesheet">
+  <link href="../../lib/fileuploader-2.2/dist/jquery.fileuploader.min.css" media="all" rel="stylesheet">
+  <link href="./css/jquery.fileuploader-theme-gallery.css" media="all" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../../node_modules/fullpage.js/dist/fullpage.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/heunheuntrip/html/header.css">
+
+  <script src="../../lib/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+  <script src="../../lib/popper.min.js"></script>
+  <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../../lib/selectric/jquery.selectric.js"></script>
+  <script src="../../lib/aos/aos.js"></script>
+  <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+  <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="../../lib/lib.js"></script>
+  <script type="text/javascript" src="../../node_modules/fullpage.js/dist/fullpage.extensions.min.js"></script>
+  <script src="../../lib/fileuploader-2.2/dist/jquery.fileuploader.min.js" type="text/javascript"></script>
+  <script src="./js/custom.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services"></script>
+
+  <style>
+    .fp-tableCell {
+      transform: translate(0%, -15%)
+    }
+
+    .fileuploader {
+      max-width: 100%;
+    }
+
+    .input-min {
+      min-height: 250px;
+    }
+
+    .counter {
+      top: 370px;
+      right: 50px;
+      font-size: 150%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main">
+    <div id="heun-header"></div>
+
+    <div id="fullpage">
+      <div class="section">
+
+        <form id="heun-submit">
+
+          <div class="slide" id="s1" data-anchor="slide1">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>숙소 등록을 시작해볼까요? </h1>
+                    <small>1단계</small>
+                  </div>
+                  <h5>등록하시려는 숙소의 유형을 선택하세요.</h5>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+
+                        <select id="type" class="form-control form-control-lg ui-select">
+                          <option value="집전체">집전체</option>
+                          <option value="개인실">개인실</option>
+                          <option value="다인실">다인실</option>
+                        </select>
+
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <select id="maxp" class="form-control form-control-lg ui-select">
+                          <option value="1">최대 1명 숙박 가능</option>
+                          <option value="2">최대 2명 숙박 가능</option>
+                          <option value="3">최대 3명 숙박 가능</option>
+                          <option value="4">최대 4명 숙박 가능</option>
+                          <option value="5">최대 5명 숙박 가능</option>
+                          <option value="6">최대 6명 숙박 가능</option>
+                          <option value="7">최대 7명 숙박 가능</option>
+                          <option value="8">최대 8명 숙박 가능</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="area">지역을 간단하게 입력해주세요.</label>
+                    <input id="area" type="text" class="form-control form-control-lg" placeholder="지역을 입력하세요.">
+                  </div>
+                  <div class="row justify-content-between">
+                    <div class="form-group action col-4">
+                    </div>
+                    <div class="form-group action offset-md-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-next">다음</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide" id="s2" data-anchor="slide2">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>숙소에 침대와 욕실이 몇개 있나요?</h1>
+                    <small>2단계</small>
+                  </div>
+                  <h5 class="text-muted">침대와 욕실 갯수를 입력하세요.</h5>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="bed">침대</label>
+                        <select id="bed" class="form-control form-control-lg ui-select">
+                          <option value="1">1개</option>
+                          <option value="2">2개</option>
+                          <option value="3">3개</option>
+                          <option value="4">4개</option>
+                        </select>
+
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="bath">욕실</label>
+                        <select id="bath" class="form-control form-control-lg ui-select">
+                          <option value="1">1개</option>
+                          <option value="2">2개</option>
+                          <option value="3">3개</option>
+                          <option value="4">4개</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row justify-content-between">
+                    <div class="form-group action col-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-prev">이전</button>
+                    </div>
+                    <div class="form-group action offset-md-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-next">다음</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide" id="s3" data-anchor="slide3">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>숙소 주소를 입력해주세요.</h1>
+                    <small>3단계</small>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input class="form-control form-control-lg" type="text" id="postcode" placeholder="우편번호"
+                          readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input id="post-search" class="form-control form-control-lg" type="button" value="우편번호 찾기">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control form-control-lg" id="address" placeholder="주소" readonly>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input class="form-control form-control-lg" type="text" id="detailAddress" placeholder="상세주소">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input class="form-control form-control-lg" type="text" id="extraAddress" placeholder="참고항목"
+                          readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row justify-content-between">
+                    <div class="form-group action col-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-prev">이전</button>
+                    </div>
+                    <div class="form-group action offset-md-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-next">다음</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide" id="s4" data-anchor="slide4">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>어떤 편의시설을 제공하시나요?</h1>
+                    <small>4단계</small>
+                  </div>
+                  <h5>일반적으로 게스트가 기대하는 편의시설 목록입니다. </h5>
+                  <h5>숙소를 등록한 후 언제든 편의시설을 추가할 수 있어요.</h5>
+                  <br>
+                  <div class="row heun-convenience">
+                    <div class="col-md-6">
+                      <div class="form-group">
+
+                        <div class="checkbox">
+                          <input type="checkbox" id="1" name="convenience" value="1" onclick="return false;" checked>
+                          <label for="1">필수 품목</label>
+                          <small>수건, 침대 시트, 비누, 화장지, 배게</small>
+                        </div>
+
+                        <div class="checkbox">
+                          <input type="checkbox" id="2" name="convenience" value="2">
+                          <label for="2">무선인터넷</label>
+                        </div>
+
+                        <div class="checkbox">
+                          <input type="checkbox" id="3" name="convenience" value="3">
+                          <label for="3">샴푸</label>
+                        </div>
+                        <div class="checkbox">
+                          <input type="checkbox" id="4" name="convenience" value="4">
+                          <label for="4">옷장/서랍장</label>
+                        </div>
+                        <div class="checkbox">
+                          <input type="checkbox" id="5" name="convenience" value="5">
+                          <label for="5">TV</label>
+                        </div>
+                        <div class="checkbox">
+                          <input type="checkbox" id="6" name="convenience" value="6">
+                          <label for="6">난방</label>
+                        </div>
+                        <div class="checkbox">
+                          <input type="checkbox" id="7" name="convenience" value="7">
+                          <label for="7">에어컨</label>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+
+                        <div class="checkbox">
+                          <input type="checkbox" id="8" name="convenience" value="8">
+                          <label for="8">조식,커피,차</lconvenienceabel>
+                        </div>
+                        <div class="checkbox">
+                          <input type="checkbox" id="9" name="convenience" value="9">
+                          <label for="9">업무 가능 공간/책상</label>
+                        </div>
+                        <div class="checkbox">
+                          <input type="checkbox" id="10" name="convenience" value="10">
+                          <label for="10">벽난로</label>
+                        </div>
+                        <div class="checkbox">
+                          <input type="checkbox" id="11" name="convenience" value="11">
+                          <label for="11">다리미</label>
+                        </div>
+                        <div class="checkbox">
+                          <input type="checkbox" id="12" name="convenience" value="12">
+                          <label for="12">헤어드라이어</label>
+                        </div>
+                        <div class="checkbox">
+                          <input type="checkbox" id="13" name="convenience" value="13">
+                          <label for="13">게스트 전용 출입문</label>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row justify-content-between">
+                    <div class="form-group action col-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-prev">이전</button>
+                    </div>
+                    <div class="form-group action offset-md-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-next">다음</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide" id="s5" data-anchor="slide5">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>안전 시설은 무엇이 있나요?</h1>
+                    <small>5단계</small>
+                  </div>
+
+                  <div class="form-group heun-safety">
+
+                    <div class="checkbox">
+                      <input type="checkbox" id="s1" name="safety" value="1" onclick="return false;" checked>
+                      <label for="s1">화재 감지기</label>
+                      <p><small>잘 작동하는 화재 감지기를 모든 방에 구비해 놓아야 하는지 현지 법규를 확인해보세요.</small></p>
+                    </div>
+                    <div class="checkbox">
+                      <input type="checkbox" id="n" name="safety" value="2">
+                      <label for="n">일산화탄소 감지기</label>
+                      <p><small>일산화탄소 감지기 구비 요건에 대해 현지 법규를 확인해보세요. 지역에 따라, 정상적으로 작동하는 일산화탄소 감지기를 모든 방에 설치해야 할 수
+                          있습니다.</small></p>
+                    </div>
+                    <div class="checkbox">
+                      <input type="checkbox" id="m" name="safety" value="3">
+                      <label for="m">구급상자</label>
+                    </div>
+
+                    <div class="checkbox">
+                      <input type="checkbox" id="o" name="safety" value="4">
+                      <label for="o">소화기</label>
+                    </div>
+
+                    <div class="checkbox">
+                      <input type="checkbox" id="p" name="safety" value="5">
+                      <label for="p">침실문 잠금장치</label>
+                      <p><small>안전과 사생활 보호를 위해 방문을 잠글 수 있음</small></p>
+                    </div>
+
+                  </div>
+
+                  <div class="row justify-content-between">
+                    <div class="form-group action col-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-prev">이전</button>
+                    </div>
+                    <div class="form-group action offset-md-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-next">다음</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide" id="s6" data-anchor="slide6">
+            <div class="container-fulid">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>숙소 사진 올리기</h1>
+                    <small>6단계</small>
+                  </div>
+                  <small>게스트가 사진을 보고 숙소의 느낌을 생생히 떠올려볼 수 있도록 해주세요. 우선 사진 1장을 업로드하고 숙소를 등록한 후에 추가할 수 있습니다.</small>
+                  <br>
+
+                  <div class="form">
+
+                    <input type="file" name="files" class="gallery_media">
+
+                  </div>
+
+                  <div class="row justify-content-between">
+                    <div class="form-group action col-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-prev">이전</button>
+                    </div>
+                    <div class="form-group action offset-md-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-next">다음</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide" id="s7" data-anchor="slide7">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>게스트에게 숙소에 대해 설명해주세요.</h1>
+                    <small>7단계</small>
+                  </div>
+                  <h5>숙소에 대해 간략히 설명해주세요. 숙소와 주변 지역에 대한 정보에서 시작해 게스트와 어떻게 소통하고 싶은지 등의 내용을 적어주세요.</h5>
+
+                  <div class="mb-3 input-min">
+                    <label for="contents"></label>
+                    <textarea class="form-control position-relative" id="contents"
+                      placeholder="인테리어, 채광, 주변 정보 등을 설명하세요." rows="8" required></textarea>
+                    <span class="counter position-absolute">1000 자</span>
+                    <div class="invalid-feedback">
+                      숙소 설명을 작성해야 합니다. 게스트가 숙소의 모습을 머릿속으로 그려볼 수 있도록 상세 설명을 추가해 주세요.
+                    </div>
+                  </div>
+
+                  <div class="row justify-content-between">
+                    <div class="form-group action col-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-prev">이전</button>
+                    </div>
+                    <div class="form-group action offset-md-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-next">다음</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide" id="s8" data-anchor="slide8">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>정보를 추가하시겠어요?(선택사항)</h1>
+                    <small>8단계</small>
+                  </div>
+                  <h5>자세한 내용을 공유하려면 아래 추가 필드를 사용하세요.</h5>
+
+                  <div class="form-group">
+                    <h6>숙소</h6>
+                    <label for="details">게스트가 숙소에 대한 기대치를 설정할 수 있도록 기타 세부정보를 추가해주세요.</label>
+                    <textarea class="form-control" id="details" rows="2"></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <h6>게스트와의 교류</h6>
+                    <label for="reservation">숙박 중 어느 정도나 게스트의 질문에 답하거나 게스트와 시간을 보낼 수 있는지 알려주세요. 호스팅
+                      방식은 전적으로 호스트가 결정합니다!</label>
+                    <textarea class="form-control" id="reservation" rows="2"></textarea>
+                  </div>
+
+                  <div class="row justify-content-between">
+                    <div class="form-group action col-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-prev">이전</button>
+                    </div>
+                    <div class="form-group action offset-md-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-next">다음</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide" id="s9" data-anchor="slide9">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>정보를 추가하시겠어요?(선택사항2)</h1>
+                    <small>9단계</small>
+                  </div>
+                  <h5>자세한 내용을 공유하려면 아래 추가 필드를 사용하세요.</h5>
+
+                  <div class="form-group">
+                    <h6>숙소가 위치한 지역</h6>
+                    <label for="welcome">주변 환경이 어떤지 게스트에게 알려주세요. 자주 가는 커피숍, 공원, 독특한 명소 등 동네를 특별하게
+                      만드는 장소를 알려주세요.</label>
+                    <textarea class="form-control" id="welcome" rows="2"></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <h6>교통편</h6>
+                    <label for="traffic">근처의 대중교통 수단, 운전 정보, 편리한 도보 경로 등 도시와 동네를 돌아다니는 방법을
+                      알려주세요.</label>
+                    <textarea class="form-control" id="traffic" rows="2"></textarea>
+                  </div>
+
+                  <div class="row justify-content-between">
+                    <div class="form-group action col-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-prev">이전</button>
+                    </div>
+                    <div class="form-group action offset-md-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-next">다음</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide" id="s10" data-anchor="slide10">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>이름 지정 및 요금 설정</h1>
+                    <small>10단계</small>
+                  </div>
+                  <h5>숙소의 특징과 장점을 강조하는 제목을 정해 게스트의 관심을 끌어보세요.</h5>
+
+                  <div class="form-group input-group-lg">
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-lg" placeholder="숙소 제목" id="heun-name">
+                  </div>
+
+                  <div class="form-group input-group-lg">
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-lg" placeholder="숙소 가격" id="heun-price">
+                  </div>
+
+                  <div class="row justify-content-between">
+                    <div class="form-group action col-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-prev">이전</button>
+                    </div>
+                    <div class="form-group action offset-md-4">
+                      <button type="button" class="btn btn-lg btn-primary heun-push">완료</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+  </div>
+
+  </div>
+  </div>
+
+  <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
+  <div id="heun-footer"></div>
+  </div>
+  <script src="./js/updateform.js"></script>
+</body>
+
+</html>
