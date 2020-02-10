@@ -9,9 +9,9 @@
   
     <div class="heun-title form-inline">
          <a class="heun-logo" style="margin-bottom:10px" href="/index">
-         <img src="/mvc/resources/img/heunheun1.png" width="60" height="50"></a>
+         <img src="/app/resources/img/heunheun1.png" width="60" height="50"></a>
          
-     <a href=""><h4 style="font-family: 'TmonMonsori'; font-size: 35px; color: #3b8ced">흔흔트립</h4></a>
+     <a href="/app/"><h4 style="font-family: 'TmonMonsori'; font-size: 35px; color: #3b8ced">흔흔트립</h4></a>
     </div>
     <div class="collapse navbar-collapse d-flex flex-row-reverse" id="menu-content">
 
@@ -42,4 +42,4 @@
     </div>
   </div>
 </nav>
-<script src='/mvc/resources/js/header.js'></script>
+<script src='/app/resources/js/header.js'></script>
