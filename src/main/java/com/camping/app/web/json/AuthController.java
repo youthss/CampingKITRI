@@ -49,7 +49,7 @@ public class AuthController {
     if (member == null) {
       content.put("status", "fail");
       request.setAttribute("status", "fail");
-      content.put("message", "�씠硫붿씪 �뾾嫄곕굹 �븫�샇媛� 留욎� �븡�뒿�땲�떎.");
+      content.put("message", "이메일 없거나 암호가 맞지 않습니다.");
     } else {
       session.setAttribute("loginUser", member);
       
@@ -67,7 +67,7 @@ public class AuthController {
     if (loginUser != null) {
       request.setAttribute("email", loginUser.getEmail());
     }
-    logger.debug("�꽭�뀡 臾댄슚�솕�떆�궡!");
+    logger.debug("세션 무효화시킴!");
     logger.debug("loginUser: " + loginUser);
     
     session.invalidate();
@@ -117,7 +117,7 @@ public class AuthController {
     if (accessToken(token) == false && sns_no == 1) {
       request.setAttribute("status", "fail");
       content.put("status", "accessTokenFail");
-      content.put("message", "�삱諛붾Ⅴ吏� �븡�뒗 �넗�겙�엯�땲�떎.");
+      content.put("message", "올바르지 않는 토큰입니다.");
       return content;
     } 
 
@@ -127,7 +127,7 @@ public class AuthController {
     if (member == null) {
       request.setAttribute("status", "fail");
       content.put("status", "fail");
-      content.put("message", "�씠硫붿씪�씠 �뾾嫄곕굹 �븫�샇媛� 留욎� �븡�뒿�땲�떎.");
+      content.put("message", "이메일이 없거나 암호가 맞지 않습니다.");
     } else {
       request.setAttribute("status", "success");
       session.setAttribute("loginUser", member);
@@ -143,14 +143,14 @@ public class AuthController {
       String accessToken,
       HttpSession session,
       HttpServletRequest request) throws Exception {
-    // accessToken�쓣 媛�吏�怨� �럹�씠�뒪遺� �꽌踰꾩뿉 濡쒓렇�씤 �궗�슜�옄�쓽 �젙蹂대�� �슂泥��븳�떎.
+    // accessToken을 가지고 페이스북 서버에 로그인 사용자의 정보를 요청한다.
     Map fbLoginUser = facebookService.getLoginUser(accessToken);
 
-    // �럹�씠�뒪遺곸뿉�꽌 諛쏆� �궗�슜�옄 �젙蹂�  以묒뿉�꽌 �씠硫붿씪�쓣 媛�吏�怨� �쉶�썝 �젙蹂대�� 李얜뒗�떎.
+    // 페이스북에서 받은 사용자 정보  중에서 이메일을 가지고 회원 정보를 찾는다.
     Member member = memberService.get((String)fbLoginUser.get("email"));
 
-    // 留뚯빟 �냼�뀥 �궗�슜�옄媛� �쁽�옱 �궗�씠�듃�뿉 媛��엯�맂 �긽�깭媛� �븘�땲�씪硫� �옄�룞�쑝濡� 媛��엯�떆�궓�떎.
-    // �냼�뀥 �궗�슜�옄 �젙蹂대�� 媛�吏�怨� �븘�닔 �쉶�썝 �젙蹂대�� 以�鍮꾪븳�떎.
+    // 만약 소셜 사용자가 현재 사이트에 가입된 상태가 아니라면 자동으로 가입시킨다.
+    // 소셜 사용자 정보를 가지고 필수 회원 정보를 준비한다.
     if (member == null) {
       member = new Member();
       member.setEmail((String)fbLoginUser.get("email"));
@@ -161,7 +161,7 @@ public class AuthController {
       String deft ="default.jpeg";
       member.setPhoto(deft);
 
-      // �냼�뀥 �궗�슜�옄 �젙蹂대�� DBMS�뿉 �벑濡앺븳�떎.
+      // 소셜 사용자 정보를 DBMS에 등록한다.
       memberService.snsadd(member);
     }
     session.setAttribute("loginUser", member);
@@ -192,7 +192,7 @@ public class AuthController {
   }
 
   public boolean accessToken(String token) {
-    String header = "Bearer " + token; // Bearer �떎�쓬�뿉 怨듬갚 異붽�
+    String header = "Bearer " + token; // Bearer 다음에 공백 추가
     try {
       String apiURL = "https://openapi.naver.com/v1/nid/me";
       URL url = new URL(apiURL);
@@ -200,13 +200,13 @@ public class AuthController {
       con.setRequestMethod("GET");
       con.setRequestProperty("Authorization", header);
       int responseCode = con.getResponseCode();
-      if(responseCode==200) { //�넗�겙 �젙�긽 �샇異�
+      if(responseCode==200) { //토큰 정상 호출
         return true;
-      } else {  // �넗�겙 鍮꾩젙�긽           
+      } else {  // 토큰 비정상        
         return false;
       }
     } catch (Exception e) {
-      System.out.println(e);// �삁�쇅 �샇異�
+      System.out.println(e);// 예외 호출
       return false;
     }
   }
