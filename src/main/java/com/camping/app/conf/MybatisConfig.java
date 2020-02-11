@@ -18,7 +18,7 @@ public class MybatisConfig {
   final static Logger logger = LogManager.getLogger(MybatisConfig.class);
 
   public MybatisConfig() {
-    logger.debug("MybatisConfig 媛앹껜 �깮�꽦...");
+    logger.debug("MybatisConfig 객체 생성...");
   }
   
   @Bean
