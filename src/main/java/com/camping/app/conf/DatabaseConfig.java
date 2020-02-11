@@ -25,7 +25,7 @@ public class DatabaseConfig {
   Environment env;
   
   public DatabaseConfig() {
-    logger.debug("DatabaseConfig 媛앹껜 �깮�꽦...");
+    logger.debug("DatabaseConfig 객체 생성...");
   }
   
   @Bean
