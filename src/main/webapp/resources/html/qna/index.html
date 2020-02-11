@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q&A</title>
+
+  <link rel="shortcut icon" href="/heunheuntrip/img/favicon.ico">
+  <!-- Bootstrap -->
+  <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
+  <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../../lib/animate.css" rel="stylesheet">
+  <link href="../../lib/selectric/selectric.css" rel="stylesheet">
+  <link href="../../lib/aos/aos.css" rel="stylesheet">
+  <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
+  <link href="../../css/colors/blue.css" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/heunheuntrip/html/header.css">
+
+  <script src="../../lib/jquery-3.2.1.min.js"></script>
+  <script src="../../lib/popper.min.js"></script>
+  <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../../lib/selectric/jquery.selectric.js"></script>
+  <script src="../../lib/aos/aos.js"></script>
+  <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+  <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="../../lib/lib.js"></script>
+  <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
+  <script src="../js/handlebars-paginate.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services"></script>
+
+</head>
+
+<body>
+    <div id='heun-header'></div>
+  <div id="main">
+    <div id="content">
+      <div class="container">
+
+        <div class="heun-btitle">
+          <h1>Q&A</h1>
+        </div>
+
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-12 col-xl-10">
+
+            <div class='col col-lg-5 main-btn'>
+              <a href='add.html' class="btn btn-primary btn-sm add-btn">
+              <span><i class="fas fa-pencil-alt"></i>   문의하기</span></a>
+            </div>
+
+            <div class="col col-lg-5 main-search">
+              <div class="btn-group search-choose">
+                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle searchselect" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  검색조건
+                </button>
+                <div class="dropdown-menu heun-search">
+                  <a class="dropdown-item droptitle" name="title" data-no="title">제목</a>
+                  <a class="dropdown-item dropname" name="name" data-no="name">작성자</a>
+                  <a class="dropdown-item droptitle" name="titlename" data-no="titlename">통합검색</a>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <input type="text" class="form-control search-box" id="inputSearch" placeholder="검색어를 입력하시오">
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm mb-2 search-btn" value="">검색</button>
+              </div>
+            </div>
+
+            <table class="table table-hover product_comparison">
+              <thead>
+                <tr>
+                  <th scope="col">번호</th>
+                  <th scope="col">이름</th>
+                  <th scope="col">카테고리</th>
+                  <th scope="col">제목</th>
+                  <th scope="col">등록일</th>
+                  <th scope="col">조회수</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <div class="pagination-menu"></div>
+    </div>
+    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
+    <div id="heun-footer"></div>
+  </div>
+
+  <script id="tr-template" type="text/x-handlebars-template">
+    {{#each list}}
+    <tr>
+      <th scope='row'>{{qnaNo}}</th>
+      <td>{{name}}</td>
+      <td>{{category}}</td>
+      <td><a class='heun-detail heun-title' href='#' data-no='{{qnaNo}}'>{{re}}{{title}}</td>
+      <td>{{createdDate}}</td>
+      <td>{{viewCount}}</td>
+    </tr>
+    {{/each}}
+    </script>
+
+  <script id="page-template" type="text/x-handlebars-template">
+    <nav>
+      <ul class="pagination pagination-centered">
+        {{#paginate pagination type="first"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="previous"}}
+          <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="middle" limit="5"}}
+          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="loadList({{n}})">{{n}}</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="next"}}
+          <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" href="#" onclick="loadList({{n}})">&raquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="last"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&raquo;&raquo;</a></li>
+        {{/paginate}}
+    </ul>
+    </nav>
+    </script>
+
+  <script src="index.js"></script>
+
+</body>
+</html>

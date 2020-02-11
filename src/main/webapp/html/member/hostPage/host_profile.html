@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>호스트 페이지</title>
+
+  <link rel="shortcut icon" href="/heunheuntrip/img/favicon.ico">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="../../../lib/animate.css" rel="stylesheet">
+  <link href="../../../lib/selectric/selectric.css" rel="stylesheet">
+  <link href="../../../lib/aos/aos.css" rel="stylesheet">
+  <link href="../../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+  <link href="../../../css/style.css" rel="stylesheet">
+  <link href="../../../css/colors/blue.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/host_profile.css">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/heunheuntrip/html/header.css">
+
+  <script src="../../../lib/jquery-3.2.1.min.js"></script>
+  <script src="../../../lib/popper.min.js"></script>
+  <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../../../lib/selectric/jquery.selectric.js"></script>
+  <script src="../../../lib/aos/aos.js"></script>
+  <script src="../../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="../../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+  <script src="../../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="../../../lib/lib.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="https://kit.fontawesome.com/e15da187be.js"></script>
+  <script src="../../../node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+  <script src="../../../node_modules/blueimp-load-image/js/load-image.all.min.js"></script>
+  <script src="../../../node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
+  <script src="../../../node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+  <script src="../../../node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
+  <script src="../../../node_modules/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
+  <script src="../../../node_modules/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
+  <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services"></script>
+    
+</head>
+
+<body>
+  <div id="main">
+    <div id='heun-header'></div>
+    <div class="clearfix"></div>
+    <div id="content">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-12 col-xl-10">
+            <div class="row has-sidebar">
+              <div class="col-md-5 col-lg-4 col-xl-4 col-sidebar">
+                <div id="sidebar" class="sidebar-left">
+                  <div class="sidebar_inner">
+                    <div class="agent-detail">
+                      <div class="text-center">
+                        <div id='profileimg'></div>
+                        <h4 class="main-name" style="color: #4682B4; font-weight:bold;"></h4>
+                      </div>
+                    </div>
+                    <div class="list-group no-border list-unstyled">
+                      <a href="host_profile.html" class="list-group-item active"> 
+                        <i class="far fa-id-card"></i> 호스트 프로필 
+                      </a> 
+                      <a href="host_password.html" class="list-group-item"> 
+                        <i class="fas fa-unlock-alt"></i> 비밀번호 변경
+                      </a> 
+                      <a href="hostlist.html" class="list-group-item"> 
+                        <i class="fas fa-h-square"></i> 등록한 숙소
+                      </a> 
+                      <a href="hostReservation.html" class="list-group-item"> 
+                        <i class="far fa-bell"></i> 예약 관리
+                      </a> 
+                      <a href="hostreview.html" class="list-group-item"> 
+                        <i class="fas fa-sliders-h"></i> 리뷰 관리
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7 col-lg-8 col-xl-8">
+                <div class="page-header bordered">
+                  <h1>
+                    호스트 프로필<small>기본 정보</small>
+                  </h1>
+                </div>
+                <div class="form-group">
+                  <label>이름</label> <input id="name" type="text" class="form-control form-control-lg name">
+                </div>
+                <div class="form-group">
+                  <label>이메일</label> <input id="email" type="text" class="form-control form-control-lg email" readonly>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="email">전화번호</label>
+                  <div class="row form-group has-feedback in-line">
+                    <div class="col col-lg-8">
+                      <input class="form-control form-control-lg" type="text" data-name='전화번호' id="tel" />
+                    </div>
+                    <div class="col col-lg-4 tel-div">
+                      <button type='button' class='btn btn-primary' id='tel-btn' style="height: 48px">인증번호 받기</button>
+                    </div>
+                  </div>
+                  <div id="sms-tag"></div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="control-label" for="photo">프로필 사진</label>
+                  <div class="input-group mb-3">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="fileupload" src='../../images/default.jpg'
+                        name="photo" method='post' autocomplete=off aria-describedby="inputGroupFileAddon01"
+                        placeholder='파일을 선택해주세요'> 
+                        <label class="custom-file-label photo" for="inputGroupFile01">파일을 선택하세요</label>
+                    </div>
+                  </div>
+                  <div id='images-div'></div>
+                  <p style="color: red">이미지을 삭제하시려면 이미지를 클릭해주세요</p>
+
+                  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                </div>
+
+                <div class="form-group action update">
+                  <button type="button" class="btn btn-lg btn-primary " id='btn1'>프로필 변경</button>
+                  <button type='button' class='btn btn-primary btn-lg' id='file-btn1' style="display: none">프로필
+                    변경</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-circle" id="to-top">
+      <i class="fa fa-angle-up"></i>
+    </button>
+
+  </div>
+  <div id='heun-footer'></div>
+  <script src='../common_profile.js'></script>
+  <script src='js/host_profile.js'></script>
+</body>
+
+</html>
