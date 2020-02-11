@@ -24,10 +24,10 @@ public class Gmail {
   
   
   public String gmailSend(String email ,String title, String Text) {
-    String user = env.getProperty("gmail.id"); // �꽕�씠踰꾩씪 寃쎌슦 �꽕�씠踰� 怨꾩젙, gmail寃쎌슦 gmail 怨꾩젙
-    String password = env.getProperty("gmail.password"); // �뙣�뒪�썙�뱶
+    String user = env.getProperty("gmail.id"); // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
+    String password = env.getProperty("gmail.password"); // 패스워드
 
-    // SMTP �꽌踰� �젙蹂대�� �꽕�젙�븳�떎.
+    // SMTP 서버 정보를 설정한다.
     Properties prop = new Properties();
     prop.put("mail.smtp.host", "smtp.gmail.com"); 
     prop.put("mail.smtp.port", 465); 
@@ -37,7 +37,7 @@ public class Gmail {
 
     Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
       protected PasswordAuthentication getPasswordAuthentication() {
-        return new PasswordAuthentication(user, password); // 硫붿씪�쓣 諛쒖넚�븷 �떎�젣 id, password
+        return new PasswordAuthentication(user, password); // 메일을 발송할 실제 id, password
       }
     });
 
@@ -45,15 +45,15 @@ public class Gmail {
       MimeMessage message = new MimeMessage(session);
       message.setFrom(new InternetAddress(user));
 
-      // �닔�떊�옄硫붿씪二쇱냼
+      /// 수신자메일주소
       message.addRecipient(Message.RecipientType.TO, new InternetAddress(email)); 
  
-      message.setSubject(title); //硫붿씪 �젣紐⑹쓣 �엯�젰
+      message.setSubject(title); //메일 제목을 입력
 
-      message.setText(Text);    //硫붿씪 �궡�슜�쓣 �엯�젰
+      message.setText(Text);    //메일 내용을 입력
 
       // send the message
-      Transport.send(message); ////�쟾�넚
+      Transport.send(message); ////전송
       return ("success");
 
     } catch (AddressException e) {
