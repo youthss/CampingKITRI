@@ -1,11 +1,11 @@
 var auth = 0;
 $(document).ready(function () {
-	$("#heun-header").load("header", function () {
+	$("#heun-header").load("/app/header", function () {
 		$(".heun-header-nav").removeClass("navbar-over absolute-top");
 	});
 	$('#file-btn1').hide();
 	$('p').hide();
-	$("#heun-footer").load("footer");
+	$("#heun-footer").load("/app/footer");
 	$(document.body).trigger('bankcheck');
 	$('#host').hide();
 

@@ -6,7 +6,7 @@
 						<div class="col-lg-3">
 								<a class="heun-logo" style="margin-bottom: 10px"
 										href="/heunheuntrip/html/index.html"> <img
-										src="/heunheuntrip/img/heunheun1.png" width="60" height="50"></a>
+										src="/app/resources/img/heunheun1.png" width="60" height="50"></a>
 								<address class="mb-3">
 										<strong>HeunHeunTrip, Inc.</strong><br> 서울특별시 강남구 테헤란로5길 11 YBM빌딩 2층, 흔흔트립 <br>
 										<abbr title="Phone">P:</abbr> (123) 456-7890

@@ -19,8 +19,8 @@
   <link href="/app/resources/lib/swiper/css/swiper.min.css" rel="stylesheet">
   <link href="/app/resources/lib/aos/aos.css" rel="stylesheet">
   <link href="/app/resources/lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
-  <link href="/app/resources/css/style.css" rel="stylesheet">
-  <link href="/app/resources/css/index.css" rel="stylesheet">
+  <link href="/app/resources/css/style.css?" rel="stylesheet">
+  <link href="/app/resources/css/index.css?" rel="stylesheet">
   <link href="/app/resources/css/colors/blue.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
@@ -47,7 +47,6 @@
 </head>
 
 <body>
-<img alt="trap card" src="/app/resources/images/trapcard.jpg">
   <div id="heun-header"></div>
   <div id="main">
     <!-- header 추가 -->
@@ -57,7 +56,7 @@
           <div class="row justify-content-md-center">
             <div class="col-md-12 col-lg-10">
               <div class="heading">
-                <h2 style="font-family: 'Pacifico', cursive; font-weight: normal">HeunheunTrip</h2>
+                <h2 style="font-family: 'Pacifico', cursive; font-weight: normal"> Trip</h2>
                 <h3>흔하지만 흔하지않은 여행</h3>
               </div>
               <form onsubmit="return false;">
@@ -167,6 +166,6 @@
   </div>
 </div>
   </script>
-  <script src="/app/resources/js/index.js"></script>
+  <script src="/app/resources/js/index.js?ver=1"></script>
 </body>
 </html>

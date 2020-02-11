@@ -3,7 +3,7 @@ var form = $('.swiper-wrapper'),
     trGenerator = Handlebars.compile(templateSrc);
  
 $(document).ready(function () {
-  $("#heun-header").load("header", function() {
+  $("#heun-header").load("/header", function() {
     $(".heun-search-form").hide();
   });
   $("#heun-footer").load("footer");

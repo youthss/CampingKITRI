@@ -6,7 +6,7 @@ $(document).ready(function() {
 			type : 'GET',
 			dataType : 'json',
 			success : function(response) {
-				location.href = 'auth/signin'
+				location.href = '/app/auth/signin'
 			},
 			error : function(error) {
 			}

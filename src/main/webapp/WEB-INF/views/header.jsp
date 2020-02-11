@@ -42,4 +42,4 @@
     </div>
   </div>
 </nav>
-<script src='/app/resources/js/header.js'></script>
+<script src='/app/resources/js/header.js?ver=1'></script>

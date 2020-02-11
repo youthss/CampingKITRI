@@ -39,7 +39,7 @@
   <script src="/app/resources/lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
   <script src="/app/resources/lib/lib.js"></script>
   <script src="/app/resources/js/handlebars.js"></script>
-  <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+  <!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
@@ -104,9 +104,8 @@
           <div class="col-md-5 col-lg-4 col-xl-3 sns">
             <div class="socal-login-buttons">
               <a id="kakao-login-btn"></a>
-              <div id="naverIdLogin" class='aa'></div>
+              <!-- <div id="naverIdLogin" class='aa'></div> -->
               <div id="fb-root"></div>
-              <a id="face-btn" href = '#' class="btn btn-social btn-block btn-facebook" style="font-size:15px; width:186px; margin-top:10px;"><i class="fab fa-facebook-f"></i> &emsp;페이스북으로 로그인</a>
             </div>
           </div>
         </div> <!-- row div 종료-->
@@ -117,7 +116,7 @@
     <i class="fa fa-angle-up"></i>
   </button>
   <div id='heun-footer'></div>
-  <script src="/app/resources/js/kakao.js"></script>
-  <script src='/app/resources/js/signin.js'></script>
+  <!-- <script src="/app/resources/js/kakao.js"></script> -->
+  <script src='/app/resources/js/signin.js?ver=1'></script>
 </body>
 </html>
